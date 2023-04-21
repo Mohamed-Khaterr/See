@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DiscoverTableViewCell" rowHeight="316" id="KGk-i7-Jjw" customClass="DiscoverTableViewCell" customModule="See" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="385" height="316"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="385" height="316"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XFC-0d-sHS" customClass="CustomSegmentControl" customModule="See" customModuleProvider="target">
+                        <rect key="frame" x="8" y="18" width="369" height="40"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="commaSeparatedButtonTitles" value="Popular,Revenue,Primary,Rated"/>
+                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                <color key="value" name="Black Color"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                <color key="value" name="Black Color"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="qei-gc-bSK" customClass="PagingCollectionView" customModule="See" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="74" width="385" height="242"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="RrG-s9-4c6">
+                            <size key="itemSize" width="128" height="128"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                    </collectionView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="qei-gc-bSK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="CL7-ro-djr"/>
+                    <constraint firstAttribute="trailing" secondItem="qei-gc-bSK" secondAttribute="trailing" id="Snk-He-9tD"/>
+                    <constraint firstAttribute="trailing" secondItem="XFC-0d-sHS" secondAttribute="trailing" constant="8" id="alx-vx-XAN"/>
+                    <constraint firstItem="XFC-0d-sHS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="18" id="jiy-qo-Xbp"/>
+                    <constraint firstItem="XFC-0d-sHS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="uJM-ch-DH1"/>
+                    <constraint firstItem="qei-gc-bSK" firstAttribute="top" secondItem="XFC-0d-sHS" secondAttribute="bottom" constant="16" id="v3A-pL-naI"/>
+                    <constraint firstAttribute="bottom" secondItem="qei-gc-bSK" secondAttribute="bottom" id="zRF-1G-W9z"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="pagingCollectionView" destination="qei-gc-bSK" id="pqk-Y8-wWr"/>
+                <outlet property="segmentControl" destination="XFC-0d-sHS" id="P59-1b-pEK"/>
+            </connections>
+            <point key="canvasLocation" x="177.536231884058" y="202.90178571428569"/>
+        </tableViewCell>
+    </objects>
+    <designables>
+        <designable name="XFC-0d-sHS">
+            <size key="intrinsicContentSize" width="-1" height="40"/>
+        </designable>
+    </designables>
+    <resources>
+        <namedColor name="Black Color">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

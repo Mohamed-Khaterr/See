@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Filter-->
+        <scene sceneID="YJi-C9-BkJ">
+            <objects>
+                <viewController storyboardIdentifier="FilterStoryboard" useStoryboardIdentifierAsRestorationIdentifier="YES" id="B4e-Tq-ihE" customClass="FilterViewController" customModule="See" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CyQ-mj-meu">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WB6-Jm-cdk">
+                                <rect key="frame" x="16" y="789" width="382" height="55"/>
+                                <color key="backgroundColor" systemColor="labelColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="0me-FK-ggd"/>
+                                </constraints>
+                                <color key="tintColor" systemColor="secondarySystemBackgroundColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Apply"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="applyButtonPressed:" destination="B4e-Tq-ihE" eventType="touchUpInside" id="Ax0-IS-xRo"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="insetGrouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="yVu-Om-hIh">
+                                <rect key="frame" x="0.0" y="88" width="414" height="683"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="NXk-NA-hg2"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="WB6-Jm-cdk" firstAttribute="top" secondItem="yVu-Om-hIh" secondAttribute="bottom" constant="18" id="DhK-Ka-Z6V"/>
+                            <constraint firstItem="WB6-Jm-cdk" firstAttribute="leading" secondItem="CyQ-mj-meu" secondAttribute="leading" constant="16" id="IKE-sd-W0t"/>
+                            <constraint firstItem="yVu-Om-hIh" firstAttribute="top" secondItem="NXk-NA-hg2" secondAttribute="top" id="OoT-Fr-16i"/>
+                            <constraint firstItem="NXk-NA-hg2" firstAttribute="bottom" secondItem="WB6-Jm-cdk" secondAttribute="bottom" constant="18" id="OsT-2c-VU6"/>
+                            <constraint firstAttribute="trailing" secondItem="WB6-Jm-cdk" secondAttribute="trailing" constant="16" id="VAG-m9-9UA"/>
+                            <constraint firstItem="yVu-Om-hIh" firstAttribute="leading" secondItem="NXk-NA-hg2" secondAttribute="leading" id="YvJ-gX-oDT"/>
+                            <constraint firstItem="yVu-Om-hIh" firstAttribute="trailing" secondItem="NXk-NA-hg2" secondAttribute="trailing" id="tIw-kc-m4P"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Filter" id="xLS-Gl-Ywc">
+                        <barButtonItem key="rightBarButtonItem" title="Reset" id="izx-91-hsM">
+                            <connections>
+                                <action selector="resetButtonPressed:" destination="B4e-Tq-ihE" id="3nl-QC-ekv"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="yVu-Om-hIh" id="xXg-9A-QC2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kVk-7m-1db" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="578.26086956521749" y="-1650"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="bNY-j5-J5t">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="BoW-Tj-FEb" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CzN-jg-cOD">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" systemColor="labelColor"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="B4e-Tq-ihE" kind="relationship" relationship="rootViewController" id="klk-pl-qA7"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kRF-hp-onn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-331.8840579710145" y="-1650"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

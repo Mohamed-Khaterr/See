@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Inter-Regular.ttf">
+            <string>Inter-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SortingTableViewCell" rowHeight="94" id="KGk-i7-Jjw" customClass="SortingTableViewCell" customModule="See" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="681" height="94"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="681" height="94"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Popular" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5EW-Gl-2Ca">
+                        <rect key="frame" x="66" y="37" width="58" height="20"/>
+                        <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="16"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lQ0-sE-nPg" userLabel="Border CheckBox">
+                        <rect key="frame" x="30" y="37" width="20" height="20"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EHI-qy-1Jt" userLabel="CheckBox View">
+                                <rect key="frame" x="4" y="4" width="12" height="12"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="12" id="Qno-2w-q27"/>
+                                    <constraint firstAttribute="width" constant="12" id="w1r-mN-GGy"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="EHI-qy-1Jt" secondAttribute="bottom" constant="4" id="T0q-0b-rZz"/>
+                            <constraint firstItem="EHI-qy-1Jt" firstAttribute="top" secondItem="lQ0-sE-nPg" secondAttribute="top" constant="4" id="UQM-pu-GpM"/>
+                            <constraint firstAttribute="width" constant="20" id="cla-aL-fFd"/>
+                            <constraint firstAttribute="height" constant="20" id="hYw-Iz-hKN"/>
+                            <constraint firstAttribute="trailing" secondItem="EHI-qy-1Jt" secondAttribute="trailing" constant="4" id="jgB-Cp-7IL"/>
+                            <constraint firstItem="EHI-qy-1Jt" firstAttribute="leading" secondItem="lQ0-sE-nPg" secondAttribute="leading" constant="4" id="xax-Uv-Mon"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" systemColor="labelColor"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="lQ0-sE-nPg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="DMT-xD-rWJ"/>
+                    <constraint firstItem="lQ0-sE-nPg" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="KFM-pt-xON"/>
+                    <constraint firstItem="5EW-Gl-2Ca" firstAttribute="leading" secondItem="lQ0-sE-nPg" secondAttribute="trailing" constant="16" id="TUJ-na-DLl"/>
+                    <constraint firstItem="5EW-Gl-2Ca" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="wC1-sS-0O0"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="checkBoxView" destination="EHI-qy-1Jt" id="0c9-ck-Wdk"/>
+                <outlet property="sortTitleLabel" destination="5EW-Gl-2Ca" id="UCd-Gf-gdd"/>
+            </connections>
+            <point key="canvasLocation" x="399.27536231884062" y="77.008928571428569"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

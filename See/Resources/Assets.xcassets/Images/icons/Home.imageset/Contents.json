@@ -1,0 +1,27 @@
+{
+  "images" : [
+    {
+      "filename" : "Home_duotone_line.svg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "Home_duotone_line@2x.svg",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "Home_duotone_line@3x.svg",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true,
+    "template-rendering-intent" : "template"
+  }
+}

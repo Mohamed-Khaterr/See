@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Inter-Regular.ttf">
+            <string>Inter-Regular</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="mb0-Ms-P2m">
+                                <rect key="frame" x="157" y="398" width="100" height="100"/>
+                                <color key="tintColor" systemColor="labelColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="Qok-Fy-tGh"/>
+                                    <constraint firstAttribute="width" constant="100" id="yrw-jJ-eSa"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This design created by @Merlan Serkaliyev" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U7c-4C-qQv">
+                                <rect key="frame" x="24" y="819.5" width="366" height="18.5"/>
+                                <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="15"/>
+                                <color key="textColor" name="Black Color"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="The Movie DB api logo" translatesAutoresizingMaskIntoConstraints="NO" id="dF9-19-xBD">
+                                <rect key="frame" x="101" y="782.5" width="212" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="212" id="9uP-dk-p8Z"/>
+                                    <constraint firstAttribute="height" constant="21" id="tdR-Fy-QKL"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="mb0-Ms-P2m" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Dbf-5W-dYB"/>
+                            <constraint firstItem="mb0-Ms-P2m" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="JXJ-a0-L2c"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="U7c-4C-qQv" secondAttribute="bottom" constant="24" id="RcL-bu-uBn"/>
+                            <constraint firstItem="dF9-19-xBD" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="So8-Rp-VeV"/>
+                            <constraint firstItem="U7c-4C-qQv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="24" id="iMs-W5-74t"/>
+                            <constraint firstItem="U7c-4C-qQv" firstAttribute="top" secondItem="dF9-19-xBD" secondAttribute="bottom" constant="16" id="nHw-Ko-O5H"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="U7c-4C-qQv" secondAttribute="trailing" constant="24" id="yqW-G9-28X"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52.173913043478265" y="375"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Logo" width="200" height="209"/>
+        <image name="The Movie DB api logo" width="423.04000854492188" height="35.400001525878906"/>
+        <namedColor name="Black Color">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
