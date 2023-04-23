@@ -257,14 +257,14 @@
 			path = CastAndCrowCollectionViewCell;
 			sourceTree = "<group>";
 		};
-		010592FA29C9947F00AF11C3 /* DetailsOfTheShow */ = {
+		010592FA29C9947F00AF11C3 /* DetailsOfTheShowPage */ = {
 			isa = PBXGroup;
 			children = (
 				010956B829CE9DE60065DD8D /* Model */,
 				0108948729CE919200C80647 /* View */,
 				0108948829CE919A00C80647 /* ViewModel */,
 			);
-			path = DetailsOfTheShow;
+			path = DetailsOfTheShowPage;
 			sourceTree = "<group>";
 		};
 		010633A529D6AE190063A63E /* FilterPage */ = {
@@ -739,8 +739,8 @@
 			children = (
 				011E099F29CAD8A50079369B /* Main Files */,
 				0161234229F5823800669331 /* MainStoryboard */,
-				010592FA29C9947F00AF11C3 /* DetailsOfTheShow */,
-				01F3D6EE29C15FB40084098B /* Home */,
+				010592FA29C9947F00AF11C3 /* DetailsOfTheShowPage */,
+				01F3D6EE29C15FB40084098B /* HomePage */,
 				011E09A029CAE5950079369B /* DiscoverPage */,
 				0104026129CD68E60046E4C3 /* CatalogePage */,
 				010633A529D6AE190063A63E /* FilterPage */,
@@ -800,14 +800,14 @@
 			path = LoginPage;
 			sourceTree = "<group>";
 		};
-		01F3D6EE29C15FB40084098B /* Home */ = {
+		01F3D6EE29C15FB40084098B /* HomePage */ = {
 			isa = PBXGroup;
 			children = (
 				010FE2CC29CFDA9300F0EB01 /* Sections */,
 				010FE2CB29CFDA8B00F0EB01 /* View */,
 				010FE2CF29CFDAC000F0EB01 /* ViewModel */,
 			);
-			path = Home;
+			path = HomePage;
 			sourceTree = "<group>";
 		};
 		01F96A3D291332F4004CF3FE /* SavedCollectionViewCell */ = {
