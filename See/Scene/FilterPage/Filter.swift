@@ -11,6 +11,6 @@ import Foundation
 struct Filter {
     var sort: TMDB.Sort?
     var genresID: [Int] = []
-    var rate: Int?
+    var rate: Double?
     var releaseYear: Int?
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 protocol RatingSectionDelegate: AnyObject {
-    func ratingSection(didSelectRate rate: Int?)
+    func ratingSection(didSelectRate rate: Double?)
 }
 
 
@@ -19,7 +19,7 @@ class RatingSection: NSObject, TableViewSection {
     public weak var delegate: RatingSectionDelegate?
     
     
-    private let rates = [0, 9, 8, 7, 6, 5, 4, 3]
+    private let rates: [Double] = [0, 9, 8, 7, 6, 5, 4, 3]
     
     // MARK: - UI Components
     private let textField: UITextField = {
@@ -32,7 +32,7 @@ class RatingSection: NSObject, TableViewSection {
     private let pickerView = UIPickerView()
     
     
-    init(selectedRate rate: Int?) {
+    init(selectedRate rate: Double?) {
         super.init()
         pickerView.delegate = self
         pickerView.dataSource = self

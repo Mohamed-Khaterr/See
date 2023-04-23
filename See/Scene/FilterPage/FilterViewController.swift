@@ -166,7 +166,7 @@ extension FilterViewController: GenreSectionDelegate {
 
 // MARK: - RatingSection Delegate
 extension FilterViewController: RatingSectionDelegate {
-    func ratingSection(didSelectRate rate: Int?) {
+    func ratingSection(didSelectRate rate: Double?) {
         setFilterObject()
         filter?.rate = rate
     }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Cataloge-->
+        <scene sceneID="l4H-CB-gLb">
+            <objects>
+                <viewController storyboardIdentifier="CatalogeStoryboard" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vYS-lJ-t2f" customClass="CatalogeViewController" customModule="See" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TgK-wI-Xch">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="HJC-An-2F1" customClass="UIPagingCollectionView" customModule="See" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="UmP-Xp-5j0">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="eWw-JH-hba"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="HJC-An-2F1" firstAttribute="leading" secondItem="eWw-JH-hba" secondAttribute="leading" id="Riz-3p-KGC"/>
+                            <constraint firstItem="HJC-An-2F1" firstAttribute="top" secondItem="eWw-JH-hba" secondAttribute="top" id="Ugp-mO-WM9"/>
+                            <constraint firstItem="eWw-JH-hba" firstAttribute="trailing" secondItem="HJC-An-2F1" secondAttribute="trailing" id="xXg-9d-Gch"/>
+                            <constraint firstItem="eWw-JH-hba" firstAttribute="bottom" secondItem="HJC-An-2F1" secondAttribute="bottom" id="zzx-yD-BNW"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Cataloge" id="7oj-fz-Qlm"/>
+                    <connections>
+                        <outlet property="pagingCollectionView" destination="HJC-An-2F1" id="0du-Qj-Lc2"/>
+                        <outlet property="searchBar" destination="q4y-Q1-X9Q" id="bBl-B7-LNH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7E4-kZ-zNV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search" id="q4y-Q1-X9Q">
+                    <rect key="frame" x="0.0" y="0.0" width="382" height="51"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <textInputTraits key="textInputTraits" keyboardType="alphabet" returnKeyType="search"/>
+                    <scopeButtonTitles>
+                        <string>Title</string>
+                        <string>Title</string>
+                    </scopeButtonTitles>
+                </searchBar>
+            </objects>
+            <point key="canvasLocation" x="-2126.0869565217395" y="-1650"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
