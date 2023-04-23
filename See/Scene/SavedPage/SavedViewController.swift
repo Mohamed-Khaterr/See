@@ -15,12 +15,9 @@ class SavedViewController: UIViewController {
             pagingCollectionView.pagingDataSource = self
         }
     }
+    
     private let favoritesCollectionView = FavoritesCollectionView()
     private let watchlistCollectionView = WatchlistCollectionView()
-    
-    
-    // MARK: - Variables
-    private let viewModel = SavedViewModel()
     
     
     // MARK: - LifeCycle
