@@ -123,7 +123,7 @@ final class TMDBUserService {
         do {
             let account = try await getAccountInfo(withUserSessionID: sessionID)
             let url = Endpoint.Account.markAsFavorite(accountID: account.id, sessionID: sessionID).url
-            let parameters = MarkAs(favorite: mark, watchlist: nil, type: type.rawValue, id: id)
+            let parameters = Mark(favorite: mark, watchlist: nil, type: type.rawValue, id: id)
             
             // Create URL Request
             var request = URLRequest(url: url)
@@ -151,7 +151,7 @@ final class TMDBUserService {
         do {
             let account = try await getAccountInfo(withUserSessionID: sessionID)
             let url = Endpoint.Account.markAsWatchlist(accountID: account.id, sessionID: sessionID).url
-            let parameters = MarkAs(favorite: nil, watchlist: mark, type: type.rawValue, id: id)
+            let parameters = Mark(favorite: nil, watchlist: mark, type: type.rawValue, id: id)
             
             // Create URL Request
             var request = URLRequest(url: url)

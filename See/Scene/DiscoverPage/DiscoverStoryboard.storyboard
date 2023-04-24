@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Discover View Controller-->
+        <scene sceneID="4Hx-nM-j3z">
+            <objects>
+                <viewController storyboardIdentifier="DiscoverStoryboard" useStoryboardIdentifierAsRestorationIdentifier="YES" id="1mB-mg-rgX" customClass="DiscoverViewController" customModule="See" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Nbp-hp-8hG">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="uZA-3v-5Cr">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="5Xn-wt-JUE"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="uZA-3v-5Cr" firstAttribute="leading" secondItem="5Xn-wt-JUE" secondAttribute="leading" id="5Ve-df-yNX"/>
+                            <constraint firstItem="5Xn-wt-JUE" firstAttribute="bottom" secondItem="uZA-3v-5Cr" secondAttribute="bottom" id="jUp-kv-LB7"/>
+                            <constraint firstItem="5Xn-wt-JUE" firstAttribute="trailing" secondItem="uZA-3v-5Cr" secondAttribute="trailing" id="jqX-xk-ljA"/>
+                            <constraint firstItem="uZA-3v-5Cr" firstAttribute="top" secondItem="Nbp-hp-8hG" secondAttribute="top" id="x6Y-gn-MP5"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="GV7-uu-4gc">
+                        <barButtonItem key="leftBarButtonItem" id="PsA-eF-kiE">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9ag-Xq-CP1">
+                                <rect key="frame" x="20" y="10" width="24" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" name="Black Color"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="Chevron-left"/>
+                                <connections>
+                                    <action selector="backButtonPressed:" destination="1mB-mg-rgX" eventType="touchUpInside" id="beR-5Q-ctS"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="uZA-3v-5Cr" id="6KO-hh-Bo3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s4O-FG-N9g" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="267" y="1685"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Chevron-left" width="24" height="24"/>
+        <namedColor name="Black Color">
+            <color red="0.32899999618530273" green="0.32400000095367432" blue="0.4779999852180481" alpha="0.33000001311302185" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

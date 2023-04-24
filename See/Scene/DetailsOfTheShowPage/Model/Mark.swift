@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MarkAs: Encodable {
+struct Mark: Encodable {
     let favorite: Bool?
     let watchlist: Bool?
     let type: String

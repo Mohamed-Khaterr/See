@@ -4,8 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -31,50 +29,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="93D-SV-xVX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1745" y="17"/>
-        </scene>
-        <!--Discover View Controller-->
-        <scene sceneID="5S9-3b-yAo">
-            <objects>
-                <viewController id="LoH-Q1-wzp" customClass="DiscoverViewController" customModule="See" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ujw-FV-YwX">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="bMa-fl-Czp">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </tableView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="Xfn-0a-Fpo"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="Xfn-0a-Fpo" firstAttribute="bottom" secondItem="bMa-fl-Czp" secondAttribute="bottom" id="NW6-iY-cVJ"/>
-                            <constraint firstItem="Xfn-0a-Fpo" firstAttribute="trailing" secondItem="bMa-fl-Czp" secondAttribute="trailing" id="TpD-tx-LGu"/>
-                            <constraint firstItem="bMa-fl-Czp" firstAttribute="leading" secondItem="Xfn-0a-Fpo" secondAttribute="leading" id="g1z-rp-BCK"/>
-                            <constraint firstItem="bMa-fl-Czp" firstAttribute="top" secondItem="ujw-FV-YwX" secondAttribute="top" id="qDN-ox-4QV"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="gXI-44-CSZ">
-                        <barButtonItem key="leftBarButtonItem" id="gO5-9C-R4V">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="4ic-Zg-6sz">
-                                <rect key="frame" x="20" y="10" width="24" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" name="Black Color"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="Chevron-left"/>
-                                <connections>
-                                    <action selector="backButtonPressed:" destination="LoH-Q1-wzp" eventType="touchUpInside" id="5Ci-aE-ZLe"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="tableView" destination="bMa-fl-Czp" id="PfZ-79-5dg"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="80x-vb-O4F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="267" y="1685"/>
         </scene>
         <!--Saved-->
         <scene sceneID="Maw-wb-Ccv">
@@ -128,53 +82,6 @@
             <point key="canvasLocation" x="1177" y="1284"/>
         </scene>
         <!--Profile-->
-        <scene sceneID="N5l-pb-Jj5">
-            <objects>
-                <viewController id="wgy-9c-QfY" customClass="ProfileViewController" customModule="See" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="0Xa-Zh-s1z">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="YSJ-P4-4Cm">
-                                <rect key="frame" x="0.0" y="92" width="414" height="721"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <activityIndicatorView key="tableFooterView" hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" id="O2x-ZY-pT7">
-                                    <rect key="frame" x="0.0" y="121.5" width="414" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="color" name="Black Color"/>
-                                </activityIndicatorView>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProfileCell" id="Xdv-oF-WF0">
-                                        <rect key="frame" x="0.0" y="50" width="414" height="43.5"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Xdv-oF-WF0" id="bio-1W-ASr">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="jGg-hO-8Sd"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="YSJ-P4-4Cm" firstAttribute="top" secondItem="jGg-hO-8Sd" secondAttribute="top" id="U0x-fe-uyO"/>
-                            <constraint firstItem="jGg-hO-8Sd" firstAttribute="bottom" secondItem="YSJ-P4-4Cm" secondAttribute="bottom" id="c8h-mL-9mD"/>
-                            <constraint firstItem="YSJ-P4-4Cm" firstAttribute="leading" secondItem="jGg-hO-8Sd" secondAttribute="leading" id="qaM-Q8-hAP"/>
-                            <constraint firstItem="jGg-hO-8Sd" firstAttribute="trailing" secondItem="YSJ-P4-4Cm" secondAttribute="trailing" id="uDQ-Fl-9dw"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Profile" id="WjJ-Yh-vHq"/>
-                    <connections>
-                        <outlet property="loadingIndicator" destination="O2x-ZY-pT7" id="5Zd-q4-7As"/>
-                        <outlet property="tableView" destination="YSJ-P4-4Cm" id="pkI-8C-XbE"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lnC-BT-pdi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3348" y="1576"/>
-        </scene>
-        <!--Profile-->
         <scene sceneID="mEn-Om-2Rs">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nkO-Ym-fYk" sceneMemberID="viewController">
@@ -187,12 +94,22 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="wgy-9c-QfY" kind="relationship" relationship="rootViewController" id="2xj-mV-MLr"/>
+                        <segue destination="ISg-MA-h7W" kind="relationship" relationship="rootViewController" id="HfI-Ph-baJ"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5b2-Q8-Z71" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3348" y="800"/>
+        </scene>
+        <!--ProfileStoryboard-->
+        <scene sceneID="0RJ-On-Dtr">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="ProfileStoryboard" storyboardName="ProfileStoryboard" referencedIdentifier="ProfileStoryboard" id="ISg-MA-h7W" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="rMA-fu-GxJ"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h3x-de-jp4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3349" y="1284"/>
         </scene>
         <!--Home-->
         <scene sceneID="LUE-b5-CRI">
@@ -236,19 +153,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Chevron-left" width="24" height="24"/>
         <image name="Favourite" width="24" height="24"/>
         <image name="Home" width="24" height="24"/>
         <image name="Profile Image" width="24" height="24"/>
         <image name="Search" width="24" height="24"/>
-        <namedColor name="Black Color">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>
