@@ -46,6 +46,9 @@ class FilterViewController: UIViewController {
         super.viewDidLoad()
         setupTableViewSections()
         setupTableView()
+        
+        guard filter == nil else { return }
+        filter = Filter()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,7 +89,7 @@ class FilterViewController: UIViewController {
     
     private func setupTableViewSections() {
         let sortingSection = SortingSection(sortBy: filter?.sort)
-        let genreSection = GenreSection(selectedGenresID: filter?.genresID ?? [])
+        let genreSection = GenreSection(selectedGenresID: filter?.genresID)
         let ratingSection = RatingSection(selectedRate: filter?.rate)
         let releaseYearSection = ReleaseYearSection(selectedReleaseYear: filter?.releaseYear)
         
@@ -96,11 +99,6 @@ class FilterViewController: UIViewController {
         releaseYearSection.delegate = self
         
         sections = [sortingSection, genreSection, ratingSection, releaseYearSection]
-    }
-    
-    private func setFilterObject() {
-        guard filter == nil else { return }
-        filter = Filter()
     }
 }
 
@@ -143,7 +141,6 @@ extension FilterViewController: UITableViewDataSource, UITableViewDelegate {
 // MARK: - SortingSection Delegate
 extension FilterViewController: SortingSectionDelegate {
     func sortingSection(sortBy sort: TMDB.Sort?) {
-        setFilterObject()
         filter?.sort = sort
     }
 }
@@ -157,8 +154,8 @@ extension FilterViewController: GenreSectionDelegate {
     }
     
     func genreSection(didSelectGenres genresIDs: [Int]) {
-        setFilterObject()
         filter?.genresID = genresIDs
+        tableView.reloadRows(at: [IndexPath(row: 0, section: 1)], with: .automatic)
     }
 }
 
@@ -167,7 +164,6 @@ extension FilterViewController: GenreSectionDelegate {
 // MARK: - RatingSection Delegate
 extension FilterViewController: RatingSectionDelegate {
     func ratingSection(didSelectRate rate: Double?) {
-        setFilterObject()
         filter?.rate = rate
     }
 }
@@ -177,7 +173,6 @@ extension FilterViewController: RatingSectionDelegate {
 // MARK: - ReleaseYearSection Delegate
 extension FilterViewController: ReleaseYearSectionDelegate {
     func releaseYearSection(didSelectYear year: Int?) {
-        setFilterObject()
         filter?.releaseYear = year
     }
 }

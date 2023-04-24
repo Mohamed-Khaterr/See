@@ -8,26 +8,37 @@
 import UIKit
 
 
-
 protocol GenreTableViewControllerDelegate: AnyObject {
-    func genreTableViewController(UpdateGenres genres: [GenreSection.Genre])
+    func genreTableViewController(didSelectGenres id: [Int])
 }
 
 
 class GenreTableViewController: UITableViewController {
     
+    private struct Genre {
+        let id: Int
+        let value: String
+        var isSelected: Bool
+    }
+    
     
     // MARK: - Variables
     public weak var delegate: GenreTableViewControllerDelegate?
-    private var genres: [GenreSection.Genre] = []
-    private let genreSectionTableView: UITableView?
+    private var genres: [Genre] = []
     
     
-    // MARK: - Life Cycel
-    init(genres: [GenreSection.Genre], tableViewThatWillReloaded genreSectionTableView: UITableView) {
-        self.genreSectionTableView = genreSectionTableView
+    
+    // MARK: - init
+    init(genreIDs: [Int]) {
         super.init(nibName: nil, bundle: nil)
-        self.genres = genres
+        
+        for tmdbGenre in TMDB.genres {
+            if genreIDs.contains(tmdbGenre.id) {
+                genres.append(Genre(id: tmdbGenre.id, value: tmdbGenre.name, isSelected: true))
+            } else {
+                genres.append(Genre(id: tmdbGenre.id, value: tmdbGenre.name, isSelected: false))
+            }
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -38,6 +49,9 @@ class GenreTableViewController: UITableViewController {
         print("GenreTableViewController deinit")
     }
     
+    
+    
+    // MARK: - Life Cycel
     override func viewDidLoad() {
         super.viewDidLoad()
         let resetButton = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(resetButtonPressed))
@@ -52,17 +66,16 @@ class GenreTableViewController: UITableViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         tabBarController?.tabBar.isHidden = true
-        delegate?.genreTableViewController(UpdateGenres: genres)
-        genreSectionTableView?.reloadData()
     }
     
     
     
     // MARK: - Buttons Actions
     @objc private func resetButtonPressed() {
-        for index in 0..<genres.count {
-            genres[index].isSelected = false
+        for i in genres.indices where genres[i].isSelected {
+            genres[i].isSelected = false
         }
+        delegate?.genreTableViewController(didSelectGenres: [])
         tableView.reloadData()
     }
     
@@ -71,7 +84,6 @@ class GenreTableViewController: UITableViewController {
 
     // MARK: - DataSource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return genres.count
     }
 
@@ -93,7 +105,8 @@ class GenreTableViewController: UITableViewController {
         let animation: UITableView.RowAnimation = (genres[indexPath.row].isSelected) ? .top : .bottom
         tableView.reloadRows(at: [indexPath], with: animation)
         
-        // Change the value
-        
+        // Send Selected Genre ID
+        let selectedGenresIDs = genres.filter( {$0.isSelected} ).compactMap( { $0.id } )
+        delegate?.genreTableViewController(didSelectGenres: selectedGenresIDs)
     }
 }

@@ -16,29 +16,18 @@ protocol GenreSectionDelegate: AnyObject {
 class GenreSection: NSObject, TableViewSection {
     
     
-    struct Genre {
-        let id: Int
-        let value: String
-        var isSelected: Bool
-    }
-    
-    
     // MARK: - Variables
     public weak var delegate: GenreSectionDelegate?
-    private var genres: [Genre] = []
+    private var selectedGenresID: [Int] = []
+    private var selectedGenresString: String = "All"
     
     
     // MARK: - Life Cycel
-    init(selectedGenresID: [Int]){
-        for genre in TMDB.genres {
-            genres.append(Genre(id: genre.id, value: genre.name, isSelected: false))
-        }
-        
-        
-        guard !selectedGenresID.isEmpty else { return }
-        for index in 0..<genres.count where selectedGenresID.contains(genres[index].id) {
-            genres[index].isSelected = true
-        }
+    init(selectedGenresID: [Int]?){
+        super.init()
+        guard let selectedGenresID = selectedGenresID else { return }
+        self.selectedGenresID = selectedGenresID
+        updateSelectedGenreString()
     }
     
     
@@ -53,8 +42,8 @@ class GenreSection: NSObject, TableViewSection {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.textLabel?.text = getGenreString()
         cell.accessoryType = .disclosureIndicator
+        cell.textLabel?.text = selectedGenresString
         return cell
     }
     
@@ -62,7 +51,7 @@ class GenreSection: NSObject, TableViewSection {
     
     // MARK: - Delegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let genreVC = GenreTableViewController(genres: genres, tableViewThatWillReloaded: tableView)
+        let genreVC = GenreTableViewController(genreIDs: selectedGenresID)
         genreVC.delegate = self
         delegate?.genreSection(goToGenreVC: genreVC)
     }
@@ -70,11 +59,14 @@ class GenreSection: NSObject, TableViewSection {
     
     
     // MARK: - Functions
-    private func getGenreString() -> String {
-        let selectedGenres = genres.filter({ $0.isSelected })
-        let genresValues = selectedGenres.compactMap({ $0.value })
-        let genresValueString = genresValues.joined(separator: ", ")
-        return selectedGenres.isEmpty ? "All" : genresValueString
+    private func updateSelectedGenreString() {
+        if selectedGenresID.isEmpty {
+            selectedGenresString = "All"
+            return
+        } else {
+            let genresStringArray = TMDB.genres.filter({ tmdbGenre in selectedGenresID.contains(tmdbGenre.id) }).compactMap({$0.name})
+            selectedGenresString = genresStringArray.joined(separator: ", ")
+        }
     }
 }
 
@@ -84,9 +76,9 @@ class GenreSection: NSObject, TableViewSection {
 
 // MARK: - GenreTableViewContorller Delegate
 extension GenreSection: GenreTableViewControllerDelegate {
-    func genreTableViewController(UpdateGenres genres: [GenreSection.Genre]) {
-        self.genres = genres
-        let selectedGenresID = genres.filter({ $0.isSelected }).compactMap({ $0.id })
+    func genreTableViewController(didSelectGenres id: [Int]) {
+        selectedGenresID = id
+        updateSelectedGenreString()
         delegate?.genreSection(didSelectGenres: selectedGenresID)
     }
 }
