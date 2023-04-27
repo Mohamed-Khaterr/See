@@ -69,6 +69,7 @@ iOS Application (similar to Netflix but different in UI design) based on MVVM.
 - NSCache
 - Delegate Desgin Pattern
 - Singleton Design Pattern
+- NotificationCenter
 - userDefaults
 - NWPathMonitor
 
