@@ -23,6 +23,14 @@ class SavedViewController: UIViewController {
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Favorites
+        favoritesCollectionView.viewModelDelegate = self
+        favoritesCollectionView.viewDidLoad()
+        
+        // Watch list
+        watchlistCollectionView.viewModelDelegate = self
+        watchlistCollectionView.viewDidLoad()
     }
 }
 
@@ -35,5 +43,30 @@ extension SavedViewController: UIPagingCollectionViewDataSource {
     
     func pagingCollectionView(subCollectionViews pagingCollectionView: UIPagingCollectionView) -> [UICollectionView] {
         return [favoritesCollectionView, watchlistCollectionView]
+    }
+}
+
+
+// MARK: - FavoritesViewModelDelegatye
+extension SavedViewController: FavoritesViewModelDelegate {
+    func favoritesViewModel(errorTitle title: String?, message: String) {
+        Alert.show(to: self, title: title, message: message)
+    }
+    
+    func favoritesViewModel(goToViewController vc: UIViewController) {
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+
+
+// MARK: - WatchlistViewModelDelegate
+extension SavedViewController: WatchlistViewModelDelegate {
+    func watchlistViewModel(errorTitle: String?, message: String) {
+        Alert.show(to: self, title: title, message: message)
+    }
+    
+    func watchlistViewModel(goToViewController vc: UIViewController) {
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
