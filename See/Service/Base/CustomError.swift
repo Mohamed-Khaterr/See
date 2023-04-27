@@ -11,20 +11,16 @@ import Foundation
 
 enum CustomError: LocalizedError {
     case noResponse
-    case serverError
     case noData
-    case noConnection
-    case TMDBMessage(message: String)
     case decodingError
+    case noLogin(customMessage: String? = nil)
     
     var errorDescription: String? {
         switch self {
         case .noResponse: return "Well, weird thing happens on the Server, The server is not response at this time please try again!"
-        case .serverError: return "Sorry, Server is not working right now please try again later!"
-        case .noData: return "Well, weird thing happens!"
-        case .noConnection: return "No Internet Connection"
-        case .TMDBMessage(let message): return message
+        case .noData: return "No response from the server, please try again later!"
         case .decodingError: return "Sorry, weird thing happens!"
+        case .noLogin(let customMessage): return customMessage ?? "You are not logged in, please login and try again."
         }
     }
 }
