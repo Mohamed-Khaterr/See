@@ -33,12 +33,8 @@ extension URLSession {
     
     
     private func dataTaskHandler<T: Decodable>(data: Data?, response: URLResponse?, error: Error?, type: T.Type, continuation: CheckedContinuation<T, Error>) {
-        let responseError = checkResponseStatus(with: response)
-        guard
-            error == nil,
-            responseError == nil
-        else {
-            continuation.resume(throwing: error ?? responseError!)
+        if let error = error {
+            continuation.resume(throwing: error)
             return
         }
         
@@ -54,6 +50,13 @@ extension URLSession {
 
         } else {
             // Fail to parse response
+            // Check if JSON is TMDB Status Response
+            if let tmdbStatus = self.parseJSON(type: TMDBStatusResponse.self, data: data) {
+                continuation.resume(throwing: tmdbStatus)
+                return
+            }
+            
+            // Fail to parse response
             // Check if JSON Data is TMDB Error
             if let tmdbError = self.parseJSON(type: TMDBErrorResponse.self, data: data) {
                 continuation.resume(throwing: tmdbError)
@@ -66,13 +69,9 @@ extension URLSession {
     
     public func getOnlyData(with url: URL) async throws -> Data {
         return try await withCheckedThrowingContinuation({ continuation in
-            URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
-                let responseError = self?.checkResponseStatus(with: response)
-                guard
-                    error == nil,
-                    responseError == nil
-                else {
-                    continuation.resume(throwing: error ?? responseError!)
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                if let error = error {
+                    continuation.resume(throwing: error)
                     return
                 }
                 
@@ -90,16 +89,6 @@ extension URLSession {
     
     
     // MARK: - Helper Functions
-    private func checkResponseStatus(with response: URLResponse?) -> Error? {
-        guard let httpResponse = response as? HTTPURLResponse else {
-            return CustomError.noResponse
-        }
-        
-        let statusCode = httpResponse.statusCode
-        
-        let success = (200...299).contains(statusCode)
-        return success ? nil : CustomError.serverError
-    }
     
     private func parseJSON<T: Decodable>(type: T.Type, data: Data) -> T? {
         do {
