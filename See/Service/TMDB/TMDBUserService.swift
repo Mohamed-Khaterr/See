@@ -15,6 +15,7 @@ final class TMDBUserService {
         do {
             let result = try await URLSession.shared.prefromTask(with: url, type: TokenResponse.self)
             return result.token
+            
         } catch {
             throw error
         }
@@ -35,6 +36,7 @@ final class TMDBUserService {
         do {
             let result = try await URLSession.shared.prefromTask(with: request, type: SessionIDResponse.self)
             return result.sessionId
+            
         } catch {
             throw error
         }
@@ -133,11 +135,11 @@ final class TMDBUserService {
             
             let result = try await URLSession.shared.prefromTask(with: request, type: TMDBStatusResponse.self)
             
-            if !result.success {
-                throw CustomError.TMDBMessage(message: result.statusMessage)
+            if result.success {
+                return result.statusMessage
+            } else {
+                throw result
             }
-            
-            return result.statusMessage
             
         } catch {
             throw error
@@ -161,11 +163,27 @@ final class TMDBUserService {
             
             let result = try await URLSession.shared.prefromTask(with: request, type: TMDBStatusResponse.self)
             
-            if !result.success {
-                throw CustomError.TMDBMessage(message: result.statusMessage)
+            if result.success {
+                return result.statusMessage
+                
+            } else {
+                throw result
             }
             
-            return result.statusMessage
+        } catch {
+            print(error)
+            throw error
+        }
+    }
+    
+    
+    
+    func getFavorite(_ type: ShowType, sessionID: String, accountID: Int) async throws -> [Show] {
+        do {
+            let typeString = (type == .movie) ? "movies" : "tv"
+            let url = Endpoint.Account.getFavorites(accountID: accountID, type: typeString, sessionID: sessionID).url
+            let favorites = try await URLSession.shared.prefromTask(with: url, type: ShowResponse.self)
+            return favorites.results
             
         } catch {
             throw error
@@ -173,36 +191,16 @@ final class TMDBUserService {
     }
     
     
-    
-    func getFavorite(_ type: ShowType) async throws -> [Show] {
-        let sessionID = User.shared.getSessionID() ?? ""
-        
+    func getWatchlist(_ type: ShowType, sessionID: String, accountID: Int) async throws -> [Show] {
         do {
-            let account = try await getAccountInfo(withUserSessionID: sessionID)
             let typeString = (type == .movie) ? "movies" : "tv"
-            let url = Endpoint.Account.getFavorites(accountID: account.id, type: typeString, sessionID: sessionID).url
-            let shows = try await URLSession.shared.prefromTask(with: url, type: ShowResponse.self)
-            return shows.results
+            let url = Endpoint.Account.getWatchlist(accountID: accountID, type: typeString, sessionID: sessionID).url
+            let watchlist = try await URLSession.shared.prefromTask(with: url, type: ShowResponse.self)
+            return watchlist.results
             
         } catch {
             throw error
         }
-    }
-    
-    
-    func getWatchlist(_ type: ShowType) async throws -> [Show] {
-        let sessionID = User.shared.getSessionID() ?? ""
-        
-        do {
-            let account = try await getAccountInfo(withUserSessionID: sessionID)
-            let typeString = (type == .movie) ? "movies" : "tv"
-            let url = Endpoint.Account.getWatchlist(accountID: account.id, type: typeString, sessionID: sessionID).url
-            let shows = try await URLSession.shared.prefromTask(with: url, type: ShowResponse.self)
-            return shows.results
-        } catch {
-            
-        }
-        return []
     }
     
     
@@ -230,10 +228,13 @@ final class TMDBUserService {
         
         do {
             let result = try await URLSession.shared.prefromTask(with: request, type: TMDBStatusResponse.self)
-            if !result.success {
-                throw CustomError.TMDBMessage(message: result.statusMessage)
+            
+            if result.success {
+                return result
+            } else {
+                throw result
             }
-            return result
+            
         } catch {
             throw error
         }
