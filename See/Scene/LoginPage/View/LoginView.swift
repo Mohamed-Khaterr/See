@@ -57,7 +57,7 @@ class LoginView: UIView {
         let button = UIButton()
         button.setImage(Constant.eyeImage, for: .normal)
         button.tintColor = .systemGray3
-        button.addTarget(LoginView.self, action: #selector(showTextEntryButtonPressed(_:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(showTextEntryButtonPressed(_:)), for: .touchUpInside)
         return button
     }()
     
