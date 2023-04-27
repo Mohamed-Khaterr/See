@@ -254,7 +254,7 @@ extension DetailsOfTheShowViewController: DetailsOfTheShowViewModelDelegate {
         present(shareSheetVC, animated: true, completion: nil)
     }
     
-    func detailsOfTheShowViewModel(goTo detailsVC: DetailsOfTheShowViewController) {
-        navigationController?.pushViewController(detailsVC, animated: true)
+    func detailsOfTheShowViewModel(goToViewController vc: UIViewController) {
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

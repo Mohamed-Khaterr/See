@@ -19,7 +19,7 @@ protocol DetailsOfTheShowViewModelDelegate: AnyObject {
     func detailsOfTheShowViewModel(UpdateTrailerWebViewWith request: URLRequest?)
     func detailsOfTheShowViewModel(updateCastSectionWith cast: [Cast])
     func detailsOfTheShowViewModel(updateSimilarShowsSectionWith shows: [Show])
-    func detailsOfTheShowViewModel(goTo detailsVC: DetailsOfTheShowViewController)
+    func detailsOfTheShowViewModel(goToViewController vc: UIViewController)
     func detailsOfTheShowViewModel(shareButtonPressed shareSheetVC: UIActivityViewController)
 }
 
@@ -336,6 +336,6 @@ extension DetailsOfTheShowViewModel: SimilarShowSectionDelegate {
         guard let type = showType else { return }
         let id = show.id
         let newDetailsOfTheShowVC = DetailsOfTheShowViewController.storyboardInstance(showID: id, andType: type)
-        delegate?.detailsOfTheShowViewModel(goTo: newDetailsOfTheShowVC)
+        delegate?.detailsOfTheShowViewModel(goToViewController: newDetailsOfTheShowVC)
     }
 }
