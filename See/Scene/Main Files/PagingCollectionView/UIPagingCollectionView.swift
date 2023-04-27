@@ -61,7 +61,6 @@ final class UIPagingCollectionView: UICollectionView {
     
     // MARK: Setup UIPagingCollectionView
     private func collectionViewConfig() {
-        collectionViewInteraction()
         collectionViewLayout = compositionalLayout()
         
         register(UICollectionViewCell.self, forCellWithReuseIdentifier: "PagingCollectionViewCell")
@@ -70,11 +69,11 @@ final class UIPagingCollectionView: UICollectionView {
                  withReuseIdentifier: UIPagingHeaderCollectionReusableView.identifier)
         
         dataSource = self
-    }
-    
-    private func collectionViewInteraction() {
+        
         isPagingEnabled = true
         showsHorizontalScrollIndicator = false
+        showsVerticalScrollIndicator = false
+        isScrollEnabled = false
     }
     
     
