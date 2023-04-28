@@ -36,7 +36,7 @@ final class DetailsOfTheShowViewModel {
     private let showID: Int
     private let showType: ShowType
     private var details: Details?
-    private var accountStates: AccountStates
+    private var accountStates: AccountStates?
     public var hideEpisodeSeasonsLabel: ((Bool) -> Void)?
     
     
@@ -44,7 +44,11 @@ final class DetailsOfTheShowViewModel {
     init(showType type: ShowType, andID id: Int) {
         self.showID = id
         self.showType = type
-        self.accountStates = AccountStates()
+        
+        
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(userDidLoggedIn), name: Notification.Name(User.loginNotificationKey), object: nil)
+        notificationCenter.addObserver(self, selector: #selector(userDidLoggedOut), name: Notification.Name(User.logoutNotificationKey), object: nil)
     }
     
     
@@ -57,7 +61,7 @@ final class DetailsOfTheShowViewModel {
             // Parallel Requests
             await withTaskGroup(of: Void.self, body: { [weak self] group in
                 guard let self = self else { return }
-                group.addTask { await self.fetchAccountStatus() }
+                group.addTask { await self.fetchAccountStates() }
                 group.addTask { await self.fetchDetails() }
                 group.addTask { await self.fetchTrailerVideosPaths() }
                 group.addTask { await self.fetchCast() }
@@ -87,7 +91,7 @@ final class DetailsOfTheShowViewModel {
             return
         }
         
-        let markAsWatchlist = !accountStates.watchlist
+        let markAsWatchlist = !accountStates!.watchlist
         
         Task {
             do {
@@ -112,7 +116,7 @@ final class DetailsOfTheShowViewModel {
             return
         }
         
-        let markAsFavorite = !accountStates.favorite
+        let markAsFavorite = !accountStates!.favorite
         
         Task {
             do {
@@ -137,7 +141,7 @@ final class DetailsOfTheShowViewModel {
             return
         }
         
-        let markAsRate = !accountStates.rated
+        let markAsRate = !accountStates!.rated
         
         Task {
             do {
@@ -157,10 +161,21 @@ final class DetailsOfTheShowViewModel {
     
     
     
+    // MARK: - Notification Center
+    @objc private func userDidLoggedIn() {
+        Task { await fetchAccountStates() }
+    }
+    
+    @objc private func userDidLoggedOut() {
+        accountStates = nil
+        delegate?.detailsOfTheShowViewModel(accountStatesDidUpdate: (false, false, false))
+    }
+    
+    
     
     
     // MARK: - Fetching Data
-    private func fetchAccountStatus() async {
+    private func fetchAccountStates() async {
         guard User.shared.isLoggedIn else { return }
         
         do {
