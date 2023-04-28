@@ -14,6 +14,26 @@ struct User {
     
     private let tokenKey = "requestToken"
     private let sessionIDKey = "sessionId"
+    private let accountIDKey = "accountIdKey"
+    
+    public var token: String {
+        get {
+            userDefaults.string(forKey: tokenKey) ?? ""
+        }
+    }
+    
+    public var sessionID: String {
+        userDefaults.string(forKey: sessionIDKey) ?? ""
+    }
+    
+    public var isLoggedIn: Bool {
+        userDefaults.string(forKey: sessionIDKey) != nil
+    }
+    
+    public var accountID: Int {
+        userDefaults.integer(forKey: accountIDKey)
+    }
+    
     
     private let notificationCenter = NotificationCenter.default
     public static let loginNotificationKey = "User.loggedIn"
@@ -30,21 +50,14 @@ struct User {
         sendNotifictaionForLogin()
     }
     
-    func getToken() -> String?{
-        return userDefaults.string(forKey: tokenKey)
-    }
-    
-    func getSessionID() -> String?{
-        return userDefaults.string(forKey: sessionIDKey)
-    }
-    
-    func isLogin() -> Bool {
-        return getSessionID() != nil
+    func setAccountID(_ id: Int) {
+        userDefaults.set(id, forKey: accountIDKey)
     }
     
     func logout(){
         userDefaults.removeObject(forKey: tokenKey)
         userDefaults.removeObject(forKey: sessionIDKey)
+        userDefaults.removeObject(forKey: accountIDKey)
         sendNotificationForLogout()
     }
     

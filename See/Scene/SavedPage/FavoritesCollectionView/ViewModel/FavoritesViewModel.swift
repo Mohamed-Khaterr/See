@@ -75,15 +75,15 @@ class FavoritesViewModel {
     
     
     public func fetchFavorites() {
-        guard User.shared.isLogin(), let sessionID = User.shared.getSessionID() else { return }
+        guard User.shared.isLoggedIn else { return }
         
         isNoLoginLabelHidden?(true)
         
         Task {
             do {
-                let account = try await tmdbUserService.getAccountInfo(withUserSessionID: sessionID)
-                async let favoriteMovies = tmdbUserService.getFavorite(.movie, sessionID: sessionID, accountID: account.id)
-                async let favoriteTVShows = tmdbUserService.getFavorite(.tv, sessionID: sessionID, accountID: account.id)
+                let account = try await tmdbUserService.getAccountInfo(withUserSessionID: User.shared.sessionID)
+                async let favoriteMovies = tmdbUserService.getFavorite(.movie, forUserSessionID: User.shared.sessionID, accountID: account.id)
+                async let favoriteTVShows = tmdbUserService.getFavorite(.tv, forUserSessionID: User.shared.sessionID, accountID: account.id)
                 let result = try await (favoriteMovies, favoriteTVShows)
                 favorites = result.0 + result.1
                 

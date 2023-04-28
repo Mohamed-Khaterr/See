@@ -98,33 +98,9 @@ final class TMDBUserService {
     }
     
     
-    func getStatus(_ type: ShowType, id: Int) async throws -> Status {
-        let sessionID = User.shared.getSessionID() ?? ""
-        
-        let url: URL!
-        switch type {
-        case .movie:
-            url = Endpoint.Movie.getStatus(id: id, sessionID: sessionID).url
-        case .tv:
-            url = Endpoint.TV.getStatus(id: id, sessionID: sessionID).url
-        }
-        
+    func markAsFavorites(_ mark: Bool, type: ShowType, id: Int, forUserSessionID sessionID: String, accountID: Int) async throws {
         do {
-            let result = try await URLSession.shared.prefromTask(with: url, type: Status.self)
-            return result
-            
-        } catch {
-            throw error
-        }
-    }
-    
-    
-    func markAsFavorites(_ mark: Bool, type: ShowType, id: Int) async throws -> String {
-        let sessionID = User.shared.getSessionID() ?? ""
-        
-        do {
-            let account = try await getAccountInfo(withUserSessionID: sessionID)
-            let url = Endpoint.Account.markAsFavorite(accountID: account.id, sessionID: sessionID).url
+            let url = Endpoint.Account.markAsFavorite(accountID: accountID, sessionID: sessionID).url
             let parameters = Mark(favorite: mark, watchlist: nil, type: type.rawValue, id: id)
             
             // Create URL Request
@@ -133,12 +109,10 @@ final class TMDBUserService {
             request.httpMethod = "POST"
             request.httpBody = try JSONEncoder().encode(parameters)
             
-            let result = try await URLSession.shared.prefromTask(with: request, type: TMDBStatusResponse.self)
+            let status = try await URLSession.shared.prefromTask(with: request, type: TMDBStatusResponse.self)
             
-            if result.success {
-                return result.statusMessage
-            } else {
-                throw result
+            if !status.success {
+                throw status
             }
             
         } catch {
@@ -147,12 +121,9 @@ final class TMDBUserService {
     }
     
     
-    func markAsWatchlist(_ mark: Bool, type: ShowType, id: Int) async throws -> String {
-        let sessionID = User.shared.getSessionID() ?? ""
-        
+    func markAsWatchlist(_ mark: Bool, type: ShowType, id: Int, forUserSessionID sessionID: String, accountID: Int) async throws {
         do {
-            let account = try await getAccountInfo(withUserSessionID: sessionID)
-            let url = Endpoint.Account.markAsWatchlist(accountID: account.id, sessionID: sessionID).url
+            let url = Endpoint.Account.markAsWatchlist(accountID: accountID, sessionID: sessionID).url
             let parameters = Mark(favorite: nil, watchlist: mark, type: type.rawValue, id: id)
             
             // Create URL Request
@@ -161,24 +132,20 @@ final class TMDBUserService {
             request.httpMethod = "POST"
             request.httpBody = try JSONEncoder().encode(parameters)
             
-            let result = try await URLSession.shared.prefromTask(with: request, type: TMDBStatusResponse.self)
+            let status = try await URLSession.shared.prefromTask(with: request, type: TMDBStatusResponse.self)
             
-            if result.success {
-                return result.statusMessage
-                
-            } else {
-                throw result
+            if !status.success {
+                throw status
             }
             
         } catch {
-            print(error)
             throw error
         }
     }
     
     
     
-    func getFavorite(_ type: ShowType, sessionID: String, accountID: Int) async throws -> [Show] {
+    func getFavorite(_ type: ShowType, forUserSessionID sessionID: String, accountID: Int) async throws -> [Show] {
         do {
             let typeString = (type == .movie) ? "movies" : "tv"
             let url = Endpoint.Account.getFavorites(accountID: accountID, type: typeString, sessionID: sessionID).url
@@ -191,49 +158,12 @@ final class TMDBUserService {
     }
     
     
-    func getWatchlist(_ type: ShowType, sessionID: String, accountID: Int) async throws -> [Show] {
+    func getWatchlist(_ type: ShowType, forUserSessionID sessionID: String, accountID: Int) async throws -> [Show] {
         do {
             let typeString = (type == .movie) ? "movies" : "tv"
             let url = Endpoint.Account.getWatchlist(accountID: accountID, type: typeString, sessionID: sessionID).url
             let watchlist = try await URLSession.shared.prefromTask(with: url, type: ShowResponse.self)
             return watchlist.results
-            
-        } catch {
-            throw error
-        }
-    }
-    
-    
-    func rate(_ type: ShowType, id: Int, isRating: Bool) async throws -> TMDBStatusResponse {
-        let sessionID = User.shared.getSessionID() ?? ""
-        
-        let url: URL!
-        switch type {
-        case .movie:
-            url = Endpoint.Movie.rate(id: id, sessionID: sessionID).url
-        case .tv:
-            url = Endpoint.TV.rate(id: id, sessionID: sessionID).url
-        }
-        
-        // Create URL Request
-        var request = URLRequest(url: url)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        if isRating {
-            request.httpMethod = "POST"
-            request.httpBody = try! JSONSerialization.data(withJSONObject: ["value": 5], options: .fragmentsAllowed)
-            
-        } else {
-            request.httpMethod = "DELETE"
-        }
-        
-        do {
-            let result = try await URLSession.shared.prefromTask(with: request, type: TMDBStatusResponse.self)
-            
-            if result.success {
-                return result
-            } else {
-                throw result
-            }
             
         } catch {
             throw error

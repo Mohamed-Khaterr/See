@@ -57,6 +57,16 @@ class HomeViewController: UIViewController {
         trendingSection.delegate = self
         discoverSection.delegate = self
         sections = [trendingSection, discoverSection]
+        
+        for index in sections.indices {
+            sections[index].reloadItem = { [weak self] indexPaths in
+                self?.collectionView.reloadItems(at: indexPaths)
+            }
+            
+            sections[index].reloadData = { [weak self] in
+                self?.collectionView.reloadData()
+            }
+        }
     }
     
     
@@ -131,12 +141,10 @@ extension HomeViewController: HomeViewModelDelegate {
     }
     
     func homeViewModel(UpdateTrendingSection shows: [Show]) {
-        trendingSection.updateShows(shows)
-        collectionView.reloadData()
+        trendingSection.updateCollectionViewData(with: shows)
     }
     
     func homeViewModel(updateDicoverSection movies: [Show]) {
-        discoverSection.updateShows(movies)
-        collectionView.reloadData()
+        discoverSection.updateCollectionViewData(with: movies)
     }
 }

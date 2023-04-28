@@ -17,7 +17,7 @@ class DetailsOfTheShowViewController: UIViewController {
     static func storyboardInstance(showID id: Int, andType type: ShowType) -> DetailsOfTheShowViewController {
         let restorationID = "DetailsOfTheShow"
         let storyboard = UIStoryboard(name: restorationID, bundle: nil).instantiateViewController(withIdentifier: restorationID) as! DetailsOfTheShowViewController
-        storyboard.viewModel = DetailsOfTheShowViewModel(showID: id, showType: type)
+        storyboard.viewModel = DetailsOfTheShowViewModel(showType: type, andID: id)
         return storyboard
     }
     
@@ -57,10 +57,25 @@ class DetailsOfTheShowViewController: UIViewController {
     
     
     // MARK: - Variables
-    private var viewModel: DetailsOfTheShowViewModel?
-    private var sections: [CollectionViewSection] = []
+    private var viewModel: DetailsOfTheShowViewModel
+    private var sections: [CollectionViewSection]
     private let castSection = CastSection()
     private let similarShowsSection = SimilarShowsSection()
+    
+    
+    
+    // MARK: - init
+    required init?(coder: NSCoder) {
+        viewModel = DetailsOfTheShowViewModel(showType: .movie, andID: 0)
+        
+        // Sections Config
+        similarShowsSection.delegate = viewModel
+        
+        // Set Sections Array
+        sections = [castSection, similarShowsSection]
+        
+        super.init(coder: coder)
+    }
     
     
     // MARK: - LifeCycle
@@ -68,8 +83,17 @@ class DetailsOfTheShowViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupNavigationBar()
-        setupCollectionViewSections()
         setupViewModel()
+        
+        for index in sections.indices {
+            sections[index].reloadItem = { [weak self] indexPaths in
+                self?.collectionView.reloadItems(at: indexPaths)
+            }
+            
+            sections[index].reloadData = { [weak self] in
+                self?.collectionView.reloadData()
+            }
+        }
     }
     
     
@@ -90,20 +114,17 @@ class DetailsOfTheShowViewController: UIViewController {
         navigationItem.rightBarButtonItem = shareButton
     }
     
-    private func setupCollectionViewSections() {
-        castSection.delegate = viewModel
-        similarShowsSection.delegate = viewModel
-        sections = [castSection, similarShowsSection]
-        collectionView.reloadData()
-    }
-    
     private func setupViewModel() {
-        viewModel?.hideEpisodeSeasonsLabel = { [weak self] isHidden in
+        viewModel.hideEpisodeSeasonsLabel = { [weak self] isHidden in
             self?.episodeSeasonsLabel.isHidden = isHidden
+            if isHidden {
+                self?.episodeSeasonsLabel.constraints.filter({ $0.firstAttribute == .height }).forEach{ $0.isActive = false }
+                self?.episodeSeasonsLabel.heightAnchor.constraint(equalToConstant: 0).isActive = true
+            }
         }
         
-        viewModel?.delegate = self
-        viewModel?.viewDidLoad()
+        viewModel.delegate = self
+        viewModel.viewDidLoad()
     }
     
     
@@ -111,19 +132,19 @@ class DetailsOfTheShowViewController: UIViewController {
     
     // MARK: - IB Buttons Actions
     @IBAction func watchlistButtonPressed(_ sender: UIButton) {
-        viewModel?.watchlistButtonPressed()
+        viewModel.watchlistButtonPressed()
     }
     
     @IBAction func favoriteButtonPressed(_ sender: UIButton) {
-        viewModel?.favoriteButtonPressed()
+        viewModel.favoriteButtonPressed()
     }
     
     @IBAction func RateButtonPressed(_ sender: UIButton) {
-        viewModel?.rateButtonPressed()
+        viewModel.rateButtonPressed()
     }
     
     @objc private func shareButtonPressed() {
-        viewModel?.shareButtonPressed()
+        viewModel.shareButtonPressed()
     }
 }
 
@@ -178,17 +199,6 @@ extension DetailsOfTheShowViewController: DetailsOfTheShowViewModelDelegate {
         Alert.successMessage(to: self, message: message)
     }
     
-    func detailsOfTheShowViewModel(updateAccountStatus status: Status) {
-        let watchlistButtonImage = status.watchlist ? Constant.bookmarkFillImage : Constant.bookmarkImage
-        watchlistButton.setImage(watchlistButtonImage, for: .normal)
-        
-        let favoriteButtonImage = status.favorite ? Constant.favouriteFillImage : Constant.favouriteImage
-        favoriteButton.setImage(favoriteButtonImage, for: .normal)
-        
-        let ratedButtonText = status.rated ? "Rated" : "Rate"
-        rateButton.setTitle(ratedButtonText, for: .normal)
-    }
-    
     func detailsOfTheShowViewModel(UpdateDetailsOfTheShow details: Details) {
         titleLabel.text = details.safeTitle
         genreLabel.text = details.genreString
@@ -198,18 +208,10 @@ extension DetailsOfTheShowViewController: DetailsOfTheShowViewModelDelegate {
         rateCountLabel.text = "\(details.ratedCount)"
         popularityLabel.text = String(format: "%.0f", details.popularity)
         
-        if !episodeSeasonsLabel.isHidden {
-            var epsiodeSeasonsText = ""
-            if let numOfEpisode = details.numberOfEpisodes {
-                epsiodeSeasonsText = "\(numOfEpisode) Episodes"
-            }
-            
-            if let numOfSeasons = details.numberOfSeasons {
-                epsiodeSeasonsText += ", \(numOfSeasons) Seasons"
-            }
-            
-            episodeSeasonsLabel.text = epsiodeSeasonsText
-        }
+        
+        let numOfEpisode = details.numberOfEpisodes ?? 0
+        let numOfSeasons = details.numberOfSeasons ?? 0
+        episodeSeasonsLabel.text = "\(numOfEpisode) Episodes, \(numOfSeasons) Seasons"
     }
     
     func detailsOfTheShowViewModel(UpdateBackdrop image: UIImage?) {
@@ -240,14 +242,29 @@ extension DetailsOfTheShowViewController: DetailsOfTheShowViewModelDelegate {
         }
     }
     
+    func detailsOfTheShowViewModel(accountStatesDidUpdate states: (isFavorite: Bool?, isInWatchlist: Bool?, isRated: Bool?)) {
+        if let isInWatchlist = states.isInWatchlist {
+            let watchlistButtonImage = isInWatchlist ? Constant.bookmarkFillImage : Constant.bookmarkImage
+            watchlistButton.setImage(watchlistButtonImage, for: .normal)
+        }
+        
+        if let isFavorite = states.isFavorite {
+            let favoriteButtonImage = isFavorite ? Constant.favouriteFillImage : Constant.favouriteImage
+            favoriteButton.setImage(favoriteButtonImage, for: .normal)
+        }
+        
+        if let isRated = states.isRated {
+            let ratedButtonText = isRated ? "Rated" : "Rate"
+            rateButton.setTitle(ratedButtonText, for: .normal)
+        }
+    }
+    
     func detailsOfTheShowViewModel(updateCastSectionWith cast: [Cast]) {
-        castSection.setCast(with: cast)
-        collectionView.reloadData()
+        castSection.updateCollectionViewData(with: cast)
     }
     
     func detailsOfTheShowViewModel(updateSimilarShowsSectionWith shows: [Show]) {
-        similarShowsSection.updateShows(shows)
-        collectionView.reloadData()
+        similarShowsSection.updateCollectionViewData(with: shows)
     }
     
     func detailsOfTheShowViewModel(shareButtonPressed shareSheetVC: UIActivityViewController) {
@@ -258,3 +275,8 @@ extension DetailsOfTheShowViewController: DetailsOfTheShowViewModelDelegate {
         navigationController?.pushViewController(vc, animated: true)
     }
 }
+
+
+
+
+

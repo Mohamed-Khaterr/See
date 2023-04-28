@@ -17,15 +17,19 @@ protocol DiscoverMoviesSectionDelegate: AnyObject {
 
 final class DiscoverMoviesSection: NSObject, CollectionViewSection {
     
+    var reloadData: (() -> Void)?
+    var reloadItem: (([IndexPath]) -> Void)?
+    
+    
     // MARK: - Variables
     weak var delegate: DiscoverMoviesSectionDelegate?
     private var movies: [Show] = []
     private let tmdbImageService = TMDBImageService()
     
     
-    // MARK: - Variables
-    public func updateShows(_ shows: [Show]) {
-        self.movies = shows
+    func updateCollectionViewData(with data: Any) {
+        self.movies = data as! [Show]
+        reloadData?()
     }
 }
 
@@ -75,7 +79,7 @@ extension DiscoverMoviesSection {
         // Check if Movie has poster path
         if let posterImagePath = discoverMovie.posterPath {
             Task {
-//                await withTaskGroup(of: <#T##ChildTaskResult.Type#>, body: <#T##(inout TaskGroup<ChildTaskResult>) async -> GroupResult#>)
+                
                 // Download Poster Image
                 let posterImage = await tmdbImageService.getPosterImage(withPath: posterImagePath, inHeighQulity: false)
                 

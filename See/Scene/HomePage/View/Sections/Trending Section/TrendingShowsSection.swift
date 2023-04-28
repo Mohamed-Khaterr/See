@@ -15,6 +15,10 @@ protocol TrendingShowsSectionDelegate: AnyObject {
 
 final class TrendingShowsSection: NSObject, CollectionViewSection {
     
+    var reloadData: (() -> Void)?
+    var reloadItem: (([IndexPath]) -> Void)?
+    
+    
     // MARK: - Variables
     weak var delegate: TrendingShowsSectionDelegate?
     private var shows: [Show] = []
@@ -22,8 +26,9 @@ final class TrendingShowsSection: NSObject, CollectionViewSection {
     
     
     // MARK: - Functions
-    public func updateShows(_ shows: [Show]) {
-        self.shows = shows
+    func updateCollectionViewData(with data: Any) {
+        self.shows = data as! [Show]
+        reloadData?()
     }
 }
 

@@ -21,32 +21,46 @@ class ProfileViewController: UIViewController {
     
     // MARK: - Variables
     private let tmdbUserService = TMDBUserService()
-    private var userInfo: Account?
-    private var isLogin = false
+    private var account: Account?
+    private let notificationCenter = NotificationCenter.default
     
     
     
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        isLogin = User.shared.isLogin()
-        tableView.reloadData()
-        if userInfo == nil && isLogin {
-            Task { await requestUserInfo() }
-        }
+        
+        notificationCenter.addObserver(self,
+                                       selector: #selector(userDidLoggedIn),
+                                       name: Notification.Name(User.loginNotificationKey),
+                                       object: nil)
+        
+        notificationCenter.addObserver(self,
+                                       selector: #selector(userDidLoggedOut),
+                                       name: Notification.Name(User.logoutNotificationKey),
+                                       object: nil)
+        
+        guard User.shared.isLoggedIn else { return }
+        Task { await requestUserInfo() }
     }
     
     
     // MARK: - Functions
+    @objc private func userDidLoggedIn() {
+        Task { await requestUserInfo() }
+    }
+    
+    @objc private func userDidLoggedOut() {
+        account = nil
+        tableView.reloadData()
+    }
+    
+    
     private func requestUserInfo() async {
         do {
-            let sessionID = User.shared.getSessionID() ?? ""
-            let info = try await tmdbUserService.getAccountInfo(withUserSessionID: sessionID)
-            self.userInfo = info
+            let account = try await tmdbUserService.getAccountInfo(withUserSessionID: User.shared.sessionID)
+            User.shared.setAccountID(account.id)
+            self.account = account
             
             DispatchQueue.main.async { [weak self] in
                 self?.tableView.reloadData()
@@ -57,20 +71,19 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    
     private func requestLogout() async {
         DispatchQueue.main.async { [weak self] in
             self?.loadingIndicator.startAnimating()
         }
         
         do {
-            let sessionID = User.shared.getSessionID() ?? ""
-            let success = try await tmdbUserService.logout(withUserSessionID: sessionID)
+            let success = try await tmdbUserService.logout(withUserSessionID: User.shared.sessionID)
             
             if success {
                 User.shared.logout()
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
-                    self.isLogin = false
                     self.loadingIndicator.stopAnimating()
                     self.tableView.reloadData()
                 }
@@ -105,7 +118,7 @@ extension ProfileViewController: UITableViewDataSource{
             
         case 1:
             // Login or Logout
-            if isLogin{
+            if User.shared.isLoggedIn {
                 cell.textLabel?.text = "Log out"
                 cell.imageView?.image = UIImage(systemName: "rectangle.portrait.and.arrow.right")
                 
@@ -138,7 +151,7 @@ extension ProfileViewController: UITableViewDelegate {
             print("Application Settings")
             
         case 1:
-            if isLogin {
+            if User.shared.isLoggedIn {
                 Task { await requestLogout() }
                 
             } else {
@@ -159,7 +172,7 @@ extension ProfileViewController: UITableViewDelegate {
 // MARK: - UITableView Header
 extension ProfileViewController{
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if !isLogin{ return nil }
+        if !User.shared.isLoggedIn { return nil }
         
         let headerView = UIView()
         
@@ -182,7 +195,7 @@ extension ProfileViewController{
                                               y: profileImageView.frame.origin.y + profileImageView.frame.height + 18,
                                               width: 500,
                                               height: 20))
-            label.text = userInfo?.username ?? "Username"
+            label.text = account?.username ?? "Username"
             label.font = UIFont(name: "Inter-Medium", size: 20)
             label.textColor = .label
             label.textAlignment = .center
@@ -196,6 +209,6 @@ extension ProfileViewController{
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return isLogin ? CGFloat(self.view.frame.width / 2) : CGFloat(0)
+        return User.shared.isLoggedIn ? CGFloat(self.view.frame.width / 2) : CGFloat(0)
     }
 }

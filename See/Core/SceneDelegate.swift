@@ -47,10 +47,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         Task {
             do {
                 // Get User Token
-                let userToken = User.shared.getToken()
+                let userToken = User.shared.token
                 
                 // Get Session ID
-                let sessionID = try await tmdbUserService.getUserSessionID(token: userToken ?? "")
+                let sessionID = try await tmdbUserService.getUserSessionID(token: userToken)
                 
                 // Save Session ID in userDefualts
                 User.shared.setSessionID(sessionID)

@@ -53,7 +53,7 @@ class LoginView: UIView {
         return textField
     }()
     
-    private let showTextEntryButton: UIButton = {
+    private lazy var showTextEntryButton: UIButton = {
         let button = UIButton()
         button.setImage(Constant.eyeImage, for: .normal)
         button.tintColor = .systemGray3

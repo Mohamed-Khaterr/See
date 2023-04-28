@@ -14,6 +14,10 @@ protocol SimilarShowSectionDelegate: AnyObject {
 
 class SimilarShowsSection: NSObject, CollectionViewSection {
     
+    var reloadData: (() -> Void)?
+    var reloadItem: (([IndexPath]) -> Void)?
+    
+    
     // MARK: - Variable
     weak var delegate: SimilarShowSectionDelegate?
     private var shows: [Show] = []
@@ -21,8 +25,9 @@ class SimilarShowsSection: NSObject, CollectionViewSection {
     
     
     // MARK: - Functions
-    public func updateShows(_ shows: [Show]) {
-        self.shows = shows
+    func updateCollectionViewData(with data: Any) {
+        self.shows = data as! [Show]
+        reloadData?()
     }
 }
 

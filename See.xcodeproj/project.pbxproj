@@ -26,7 +26,7 @@
 		0108948229CE68D300C80647 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0108948129CE68D300C80647 /* LoginViewController.swift */; };
 		0108948629CE794700C80647 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0108948529CE794700C80647 /* LoginView.swift */; };
 		0108948A29CE91DF00C80647 /* DetailsOfTheShowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0108948929CE91DF00C80647 /* DetailsOfTheShowViewModel.swift */; };
-		0108CE0329126BFE0080DE39 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0108CE0229126BFE0080DE39 /* Status.swift */; };
+		0108CE0329126BFE0080DE39 /* AccountStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0108CE0229126BFE0080DE39 /* AccountStates.swift */; };
 		0108CE0729127A330080DE39 /* Rate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0108CE0629127A330080DE39 /* Rate.swift */; };
 		010A3D8629238CC80064D200 /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A3D8529238CC80064D200 /* DiscoverViewController.swift */; };
 		010BE8D22911B8DB005B1F8C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010BE8D12911B8DB005B1F8C /* ProfileViewController.swift */; };
@@ -136,7 +136,7 @@
 		0108948129CE68D300C80647 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0108948529CE794700C80647 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		0108948929CE91DF00C80647 /* DetailsOfTheShowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsOfTheShowViewModel.swift; sourceTree = "<group>"; };
-		0108CE0229126BFE0080DE39 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
+		0108CE0229126BFE0080DE39 /* AccountStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStates.swift; sourceTree = "<group>"; };
 		0108CE0629127A330080DE39 /* Rate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rate.swift; sourceTree = "<group>"; };
 		010A3D8529238CC80064D200 /* DiscoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
 		010BE8D12911B8DB005B1F8C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -359,7 +359,7 @@
 		010956B829CE9DE60065DD8D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				0108CE0229126BFE0080DE39 /* Status.swift */,
+				0108CE0229126BFE0080DE39 /* AccountStates.swift */,
 				014513BF2901EA29003840BB /* Details.swift */,
 				01072B992903F43700CE9713 /* Video.swift */,
 				011904FF2902067F0066B025 /* Cast.swift */,
@@ -1065,7 +1065,7 @@
 				0104026729CD6CF00046E4C3 /* MoviesCollectionView.swift in Sources */,
 				01DDFEF128FF6FE600FDA0EE /* UIView+Extension.swift in Sources */,
 				010FE2D329CFED4300F0EB01 /* SavedViewController.swift in Sources */,
-				0108CE0329126BFE0080DE39 /* Status.swift in Sources */,
+				0108CE0329126BFE0080DE39 /* AccountStates.swift in Sources */,
 				010BE8D22911B8DB005B1F8C /* ProfileViewController.swift in Sources */,
 				010633AB29D6B3900063A63E /* CollectionViewSection.swift in Sources */,
 				015B2FC729F42D460069BA22 /* Hidden.swift in Sources */,

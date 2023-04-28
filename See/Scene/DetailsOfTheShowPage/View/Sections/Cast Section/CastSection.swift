@@ -14,6 +14,9 @@ protocol CastSectionDelegate: AnyObject {
 
 
 class CastSection: NSObject, CollectionViewSection {
+    var reloadData: (() -> Void)?
+    var reloadItem: (([IndexPath]) -> Void)?
+    
     
     // MARK: - Variable
     weak var delegate: CastSectionDelegate?
@@ -22,8 +25,9 @@ class CastSection: NSObject, CollectionViewSection {
     
     
     // MARK: - Functions
-    public func setCast(with cast: [Cast]) {
-        self.cast = cast
+    func updateCollectionViewData(with data: Any) {
+        self.cast = data as! [Cast]
+        reloadData?()
     }
 }
 

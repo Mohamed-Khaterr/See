@@ -147,4 +147,55 @@ final class TMDBService {
             throw error
         }
     }
+    
+    func rate(_ type: ShowType, id: Int, markAsRate: Bool, forUserSessionID sessionID: String, accountID: Int) async throws {
+        let url: URL
+        switch type {
+        case .movie:
+            url = Endpoint.Movie.rate(id: id, sessionID: sessionID).url
+        case .tv:
+            url = Endpoint.TV.rate(id: id, sessionID: sessionID).url
+        }
+        
+        // Create URL Request
+        var request = URLRequest(url: url)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        if markAsRate {
+            request.httpMethod = "POST"
+            request.httpBody = try! JSONSerialization.data(withJSONObject: ["value": 5], options: .fragmentsAllowed)
+            
+        } else {
+            request.httpMethod = "DELETE"
+        }
+        
+        do {
+            let status = try await URLSession.shared.prefromTask(with: request, type: TMDBStatusResponse.self)
+            
+            if !status.success {
+                throw status
+            }
+            
+        } catch {
+            throw error
+        }
+    }
+    
+    
+    func getAccountStates(_ type: ShowType, id: Int, forUserSessionID sessionID: String) async throws -> AccountStates {
+        let url: URL!
+        switch type {
+        case .movie:
+            url = Endpoint.Movie.getStatus(id: id, sessionID: sessionID).url
+        case .tv:
+            url = Endpoint.TV.getStatus(id: id, sessionID: sessionID).url
+        }
+        
+        do {
+            let status = try await URLSession.shared.prefromTask(with: url, type: AccountStates.self)
+            return status
+            
+        } catch {
+            throw error
+        }
+    }
 }

@@ -75,15 +75,15 @@ class WatchlistViewModel {
     }
     
     public func fetchWatchlist() {
-        guard User.shared.isLogin(), let sessionID = User.shared.getSessionID() else { return }
+        guard User.shared.isLoggedIn else { return }
         isNoLoginLabelHidden?(true)
         
         Task {
             do {
-                let account = try await tmdbUserServcie.getAccountInfo(withUserSessionID: sessionID)
+                let account = try await tmdbUserServcie.getAccountInfo(withUserSessionID: User.shared.sessionID)
                 
-                async let watchlistMovies = tmdbUserServcie.getWatchlist(.movie, sessionID: sessionID, accountID: account.id)
-                async let watchlistTVShows = tmdbUserServcie.getWatchlist(.tv, sessionID: sessionID, accountID: account.id)
+                async let watchlistMovies = tmdbUserServcie.getWatchlist(.movie, forUserSessionID: User.shared.sessionID, accountID: account.id)
+                async let watchlistTVShows = tmdbUserServcie.getWatchlist(.tv, forUserSessionID: User.shared.sessionID, accountID: account.id)
                 
                 let result = try await (watchlistMovies, watchlistTVShows)
                 self.watchlist = result.0 + result.1
