@@ -21,11 +21,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         // Check Internet Connection
-//        if let rootViewController = (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.window?.rootViewController {
-//            //print(rootViewController) // is the TabBar
-//            InternetConnection.shared.monitoringConnection(to: rootViewController)
-//            print("Start Network Checking")
-//        }
+        if let rootViewController = (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.window?.rootViewController {
+            //print(rootViewController) // is the TabBar
+            InternetConnection.shared.monitoringConnection(to: rootViewController)
+            print("Start Network Checking")
+        }
     }
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
