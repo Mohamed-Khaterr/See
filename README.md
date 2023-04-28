@@ -67,6 +67,7 @@ iOS Application (similar to Netflix but different in UI design) based on MVVM.
 - [Youtube API](https://developers.google.com/youtube/v3)
 - URLSession with Modern Concurrency
 - NSCache
+- Strategy design pattern
 - Delegate Desgin Pattern
 - Singleton Design Pattern
 - NotificationCenter
