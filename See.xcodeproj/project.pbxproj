@@ -271,7 +271,6 @@
 		010592FA29C9947F00AF11C3 /* DetailsOfTheShowPage */ = {
 			isa = PBXGroup;
 			children = (
-				010956B829CE9DE60065DD8D /* Model */,
 				0108948729CE919200C80647 /* View */,
 				0108948829CE919A00C80647 /* ViewModel */,
 			);
@@ -281,7 +280,6 @@
 		010633A529D6AE190063A63E /* FilterPage */ = {
 			isa = PBXGroup;
 			children = (
-				0161235F29F58E7300669331 /* Model */,
 				0161236029F58E7B00669331 /* View */,
 				0161236129F58E8E00669331 /* Controller */,
 			);
@@ -325,7 +323,7 @@
 			path = RatingSection;
 			sourceTree = "<group>";
 		};
-		0106F27129E80D040088699D /* Model */ = {
+		0106F27129E80D040088699D /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				01EF0522290015660096A276 /* TMDBStatusResponse.swift */,
@@ -334,8 +332,22 @@
 				010BE8E829121CCE005B1F8C /* TMDB.swift */,
 				0105D13F29041E6E00B223B1 /* ShowType.swift */,
 				0121B53929017E040038E28B /* Show.swift */,
+				0108CE0229126BFE0080DE39 /* AccountStates.swift */,
+				014513BF2901EA29003840BB /* Details.swift */,
+				01072B992903F43700CE9713 /* Video.swift */,
+				011904FF2902067F0066B025 /* Cast.swift */,
+				015BC0EE29CEBE68008179D8 /* Mark.swift */,
+				0108CE0629127A330080DE39 /* Rate.swift */,
+				0174AB5E29DE8344004B3E61 /* Filter.swift */,
+				010BE8D32911EB1C005B1F8C /* Account.swift */,
+				01EF0530290025FE0096A276 /* LogoutRequest.swift */,
+				01EF05322900269A0096A276 /* LogoutResponse.swift */,
+				01EF0528290019310096A276 /* TokenResponse.swift */,
+				01EF052C290024180096A276 /* SessionIDRequest.swift */,
+				01EF052E290024D10096A276 /* SessionIDResponse.swift */,
+				01EF052A290020550096A276 /* LoginRequest.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		0108948729CE919200C80647 /* View */ = {
@@ -356,19 +368,6 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		010956B829CE9DE60065DD8D /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				0108CE0229126BFE0080DE39 /* AccountStates.swift */,
-				014513BF2901EA29003840BB /* Details.swift */,
-				01072B992903F43700CE9713 /* Video.swift */,
-				011904FF2902067F0066B025 /* Cast.swift */,
-				015BC0EE29CEBE68008179D8 /* Mark.swift */,
-				0108CE0629127A330080DE39 /* Rate.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		010A3D872923A0140064D200 /* DiscoverVC Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -385,27 +384,6 @@
 				010CF9B7290839C9006B66D3 /* TrendingShowsCollectionViewCell.xib */,
 			);
 			path = TrendingShowsCollectionViewCell;
-			sourceTree = "<group>";
-		};
-		010FE2C529CFCAB100F0EB01 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				010BE8D32911EB1C005B1F8C /* Account.swift */,
-				01EF0530290025FE0096A276 /* LogoutRequest.swift */,
-				01EF05322900269A0096A276 /* LogoutResponse.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		010FE2C829CFCC8500F0EB01 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				01EF0528290019310096A276 /* TokenResponse.swift */,
-				01EF052C290024180096A276 /* SessionIDRequest.swift */,
-				01EF052E290024D10096A276 /* SessionIDResponse.swift */,
-				01EF052A290020550096A276 /* LoginRequest.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		010FE2CB29CFDA8B00F0EB01 /* View */ = {
@@ -519,7 +497,7 @@
 				01F3D6D729C1351C0084098B /* Helper */,
 				01F3D6E829C14E640084098B /* Extensions */,
 				01F3D6D829C1353F0084098B /* Service */,
-				0106F27129E80D040088699D /* Model */,
+				0106F27129E80D040088699D /* Models */,
 				01F3D6D929C1354F0084098B /* Scene */,
 				015B2FC529F42D2F0069BA22 /* Hidden */,
 			);
@@ -708,14 +686,6 @@
 				010BE8D12911B8DB005B1F8C /* ProfileViewController.swift */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		0161235F29F58E7300669331 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				0174AB5E29DE8344004B3E61 /* Filter.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		0161236029F58E7B00669331 /* View */ = {
@@ -912,7 +882,6 @@
 		01F3D6EC29C150070084098B /* ProfilePage */ = {
 			isa = PBXGroup;
 			children = (
-				010FE2C529CFCAB100F0EB01 /* Model */,
 				0161235929F58CAA00669331 /* View */,
 				0161235A29F58CB200669331 /* Controller */,
 			);
@@ -922,7 +891,6 @@
 		01F3D6ED29C155CE0084098B /* LoginPage */ = {
 			isa = PBXGroup;
 			children = (
-				010FE2C829CFCC8500F0EB01 /* Model */,
 				0161235729F58C7E00669331 /* View */,
 				0161235829F58C8600669331 /* Controller */,
 			);
