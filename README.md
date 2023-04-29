@@ -12,7 +12,7 @@
 
 <!-- Main Screenshot -->
 <img 
-    src="https://img.youtube.com/vi/btNdq8hYc9o/0.jpg" 
+    src="Screenshots/Background.png" 
     alt="Main Screenshot" 
     width=800
 />
@@ -103,8 +103,9 @@ iOS Application (similar to Netflix but different in UI design) based on MVVM.
 <!-- ____________________________________________________________________________ -->
 ## Screenshot
 
-First Page | Second Page | Third Page
----------- | ----------- | ----------
-![]() | ![]() | ![]()
-![]() | ![]() | ![]()
-![](https://techcrunch.com/wp-content/uploads/2020/07/iOS-14.png) | ![](https://techcrunch.com/wp-content/uploads/2020/07/iOS-14.png) | ![](https://techcrunch.com/wp-content/uploads/2020/07/iOS-14.png)
+|            |             |            |           |
+| ---------- | ----------- | ---------- | --------- |
+![Home](Screenshots/Home.png) | ![Cataloge](Screenshots/Cataloge.png) | ![Saved](Screenshots/Saved.png) | ![Profile](Screenshots/Profile.png)
+![Details 1](Screenshots/Details.png) | ![Details 2](Screenshots/Details2.png) | ![Login](Screenshots/Login.png) | ![Filter](Screenshots/Filter.png)
+![Home Light](Screenshots/Home-light.png) | ![Cataloge Light](Screenshots/Cataloge-light.png) | ![Saved Light](Screenshots/Saved-light.png) | ![Profile Light](Screenshots/Profile-light.png)
+![Details 1 Light](Screenshots/Details-light.png) | ![Details 2 Light](Screenshots/Details2-light.png) | ![Login Light](Screenshots/Login-light.png) | ![Filter Light](Screenshots/Filter-light.png)
