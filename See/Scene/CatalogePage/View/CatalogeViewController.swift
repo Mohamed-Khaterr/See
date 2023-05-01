@@ -11,7 +11,7 @@ import UIKit
 class CatalogeViewController: UIViewController {
     
     // MARK: - Variable
-    private var selectedCollectionViewIndex = 0
+    private var selectedCollectionView: ShowType = .movie
     
     
     // MARK: - UI Components
@@ -54,14 +54,12 @@ class CatalogeViewController: UIViewController {
     
     // MARK: - Button Actions
     @objc private func filterButtonPressed() {
-        switch selectedCollectionViewIndex {
-        case 0: // MoviesCollectionView is Selected
+        switch selectedCollectionView {
+        case .movie:
             moviesCollectionView.filterButtonPressed()
             
-        case 1: // TVShowCollectionView is Selected
+        case .tv:
             tvShowsCollectionView.filterButtonPressed()
-            
-        default: break
         }
     }
 }
@@ -83,13 +81,14 @@ extension CatalogeViewController: UIPagingCollectionViewDataSource, UIPagingColl
     
     // MARK: Delegate
     func pagingCollectionView(didScrollToCollectionViewAt index: Int) {
-        selectedCollectionViewIndex = index
         switch index {
         case 0: // Movie
             searchBar.delegate = moviesCollectionView
+            selectedCollectionView = .movie
             
         case 1: // TV Show
             searchBar.delegate = tvShowsCollectionView
+            selectedCollectionView = .tv
             
         default:
             searchBar.delegate = nil
@@ -105,12 +104,7 @@ extension CatalogeViewController: MoviesCollectionViewDelegate {
         Alert.show(to: self, title: title, message: message)
     }
     
-    func moviesCollectionView(didSelectMovie id: Int) {
-        let detailsOfTheShowVC = DetailsOfTheShowViewController.storyboardInstance(showID: id, andType: .movie)
-        navigationController?.pushViewController(detailsOfTheShowVC, animated: true)
-    }
-    
-    func moviesCollectionView(presentViewController vc: UIViewController) {
+    func moviesCollectionView(goToViewController vc: UIViewController) {
         navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -124,12 +118,7 @@ extension CatalogeViewController: TVShowsCollectionViewDelegate {
         Alert.show(to: self, title: title, message: message)
     }
     
-    func tvShowsCollectionView(didSelectTV id: Int) {
-        let detailsOfTheShowVC = DetailsOfTheShowViewController.storyboardInstance(showID: id, andType: .tv)
-        navigationController?.pushViewController(detailsOfTheShowVC, animated: true)
-    }
-    
-    func tvShowsCollectionView(presentViewController vc: UIViewController) {
+    func tvShowsCollectionView(goToViewController vc: UIViewController) {
         navigationController?.pushViewController(vc, animated: true)
     }
 }

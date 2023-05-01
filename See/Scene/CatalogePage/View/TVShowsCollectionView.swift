@@ -10,8 +10,7 @@ import UIKit
 
 protocol TVShowsCollectionViewDelegate: AnyObject {
     func tvShowsCollectionView(showAlertWith title: String, message: String)
-    func tvShowsCollectionView(didSelectTV id: Int)
-    func tvShowsCollectionView(presentViewController vc: UIViewController)
+    func tvShowsCollectionView(goToViewController vc: UIViewController)
 }
 
 
@@ -19,7 +18,7 @@ final class TVShowsCollectionView: UICollectionView {
     
     // MARK: - Variables
     weak var tvDelegate: TVShowsCollectionViewDelegate?
-    private let viewModel = TVShowsCollectionViewViewModel()
+    private let viewModel = CatalogeViewModel(showType: .tv)
     
     
     // MARK: - LifeCycle
@@ -40,6 +39,15 @@ final class TVShowsCollectionView: UICollectionView {
         
         // ViewModel
         viewModel.delegate = self
+        viewModel.reloadCollectionView = { [weak self] in
+            self?.reloadData()
+        }
+        
+        viewModel.insertToCollectionView = { [weak self] indexPaths in
+            self?.performBatchUpdates({
+                self?.insertItems(at: indexPaths)
+            })
+        }
     }
     
     
@@ -50,9 +58,13 @@ final class TVShowsCollectionView: UICollectionView {
     
     // MARK: - Handle Buttons Action
     public func filterButtonPressed() {
-        let filterVC = FilterViewController.storyboardInstance(with: viewModel.getFilter())
-        filterVC.delegate = self
-        tvDelegate?.tvShowsCollectionView(presentViewController: filterVC)
+        if viewModel.isSearching {
+            tvDelegate?.tvShowsCollectionView(showAlertWith: "Filter", message: "Can not filter while searching.")
+            return
+        }
+        
+        let filterVC = FilterViewController.storyboardInstance(with: viewModel.currentFilter, delegate: self)
+        tvDelegate?.tvShowsCollectionView(goToViewController: filterVC)
     }
 }
 
@@ -61,21 +73,18 @@ final class TVShowsCollectionView: UICollectionView {
 // MARK: - DataSource
 extension TVShowsCollectionView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.tvCount()
+        return viewModel.numberOfItems
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ShowCollectionViewCell.identifier, for: indexPath) as! ShowCollectionViewCell
-        let tvShow = viewModel.getTVShow(at: indexPath.row)
         
-        cell.setData(cellID: tvShow.identifier,
-                     title: tvShow.safeTitle,
-                     genre: tvShow.genreString)
+        let (cellID, title, genre) = viewModel.dataForItem(at: indexPath)
+        cell.setData(cellID: cellID, title: title, genre: genre)
         
-        viewModel.getPosterImage(forTVShowAt: indexPath.row) { posterImage in
+        viewModel.getPosterImage(forItemAt: indexPath) { posterImage in
             // Check if the current cell is the correct cell
-            if cell.representedIdentifier != tvShow.identifier { return }
-            
+            if cell.representedIdentifier != cellID { return }
             // Display Poster Image
             cell.setPosterImage(with: posterImage)
         }
@@ -101,14 +110,15 @@ extension TVShowsCollectionView: UICollectionViewDataSource {
 // MARK: - Delegate
 extension TVShowsCollectionView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let tv = viewModel.getTVShow(at: indexPath.row)
-        tvDelegate?.tvShowsCollectionView(didSelectTV: tv.id)
+        let id = viewModel.showId(at: indexPath)
+        let detailsVC = DetailsOfTheShowViewController.storyboardInstance(showID: id, andType: .tv)
+        tvDelegate?.tvShowsCollectionView(goToViewController: detailsVC)
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
         // Paging
         if elementKind == UICollectionView.elementKindSectionFooter {
-            viewModel.collectionViewReachEnd()
+            viewModel.collectionViewFooterAppears()
         }
     }
 }
@@ -145,12 +155,20 @@ extension TVShowsCollectionView: UICollectionViewDelegateFlowLayout {
 // MARK: - UISearchBar Delegate
 extension TVShowsCollectionView: UISearchBarDelegate {
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        scrollToItem(at: IndexPath(item: 0, section: 0), at: .centeredVertically, animated: true)
+        searchBar.showsCancelButton = true
+        viewModel.startSearching()
         return true
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        viewModel.search(for: searchText)
+        viewModel.searching(text: searchText)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        searchBar.endEditing(true)
+        searchBar.text = nil
+        viewModel.endSearching()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -162,13 +180,9 @@ extension TVShowsCollectionView: UISearchBarDelegate {
 
 
 // MARK: - ViewModel
-extension TVShowsCollectionView: TVShowsCollectionViewViewModelDelegate {
-    func tvShowsCollectionViewViewModel(didReceiveError title: String, message: String) {
+extension TVShowsCollectionView: CatalogeViewModelDelegate {
+    func catalogeViewModel(didReceiveError title: String, message: String) {
         tvDelegate?.tvShowsCollectionView(showAlertWith: title, message: message)
-    }
-    
-    func tvShowsCollectionViewViewModel(shouldReloadData success: Bool) {
-        reloadData()
     }
 }
 

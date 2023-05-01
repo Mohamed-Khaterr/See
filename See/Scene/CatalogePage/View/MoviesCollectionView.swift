@@ -9,9 +9,8 @@ import UIKit
 
 
 protocol MoviesCollectionViewDelegate: AnyObject {
-    func moviesCollectionView(didSelectMovie id: Int)
     func moviesCollectionView(showAlertWith title: String, message: String)
-    func moviesCollectionView(presentViewController vc: UIViewController)
+    func moviesCollectionView(goToViewController vc: UIViewController)
 }
 
 
@@ -19,7 +18,7 @@ final class MoviesCollectionView: UICollectionView {
     
     // MARK: - Variables
     public weak var moviesDelegate: MoviesCollectionViewDelegate?
-    private let viewModel = MoviesCollectionViewViewModel()
+    private let viewModel = CatalogeViewModel(showType: .movie)
     
     
     // MARK: - LifeCycle
@@ -40,6 +39,15 @@ final class MoviesCollectionView: UICollectionView {
         
         // ViewModel
         viewModel.delegate = self
+        viewModel.reloadCollectionView = { [weak self] in
+            self?.reloadData()
+        }
+        
+        viewModel.insertToCollectionView = { [weak self] indexPaths in
+            self?.performBatchUpdates({
+                self?.insertItems(at: indexPaths)
+            })
+        }
     }
     
     
@@ -50,9 +58,13 @@ final class MoviesCollectionView: UICollectionView {
     
     // MARK: - Handle Buttons Action
     public func filterButtonPressed() {
-        let filterVC = FilterViewController.storyboardInstance(with: viewModel.getFilter())
-        filterVC.delegate = self
-        moviesDelegate?.moviesCollectionView(presentViewController: filterVC)
+        if viewModel.isSearching {
+            moviesDelegate?.moviesCollectionView(showAlertWith: "Filter", message: "Can not filter while searching.")
+            return
+        }
+        
+        let filterVC = FilterViewController.storyboardInstance(with: viewModel.currentFilter, delegate: self)
+        moviesDelegate?.moviesCollectionView(goToViewController: filterVC)
     }
 }
 
@@ -61,22 +73,18 @@ final class MoviesCollectionView: UICollectionView {
 // MARK: - DataSource
 extension MoviesCollectionView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.moviesCount()
+        return viewModel.numberOfItems
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ShowCollectionViewCell.identifier, for: indexPath) as! ShowCollectionViewCell
-        let movie = viewModel.getMovieData(at: indexPath.row)
         
-        cell.setData(cellID: movie.identifier,
-                     title: movie.safeTitle,
-                     genre: movie.genreString)
+        let (cellID, title, genre) = viewModel.dataForItem(at: indexPath)
+        cell.setData(cellID: cellID, title: title, genre: genre)
         
-        
-        viewModel.getPosterImage(forMovieAt: indexPath.row) { posterImage in
-            // Check if the current cell is the correct cell
-            if cell.representedIdentifier != movie.identifier { return }
-            
+        viewModel.getPosterImage(forItemAt: indexPath) { posterImage in
+            // Check if the current cell is the correct cell for this poster
+            if cell.representedIdentifier != cellID { return }
             // Display Poster Image
             cell.setPosterImage(with: posterImage)
         }
@@ -101,14 +109,15 @@ extension MoviesCollectionView: UICollectionViewDataSource {
 // MARK: - Delegate
 extension MoviesCollectionView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let movie = viewModel.getMovieData(at: indexPath.row)
-        moviesDelegate?.moviesCollectionView(didSelectMovie: movie.id)
+        let id = viewModel.showId(at: indexPath)
+        let detailsVC = DetailsOfTheShowViewController.storyboardInstance(showID: id, andType: .movie)
+        moviesDelegate?.moviesCollectionView(goToViewController: detailsVC)
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
         // Paging
         if elementKind == UICollectionView.elementKindSectionFooter {
-            viewModel.collectionViewReachEnd()
+            viewModel.collectionViewFooterAppears()
         }
     }
 }
@@ -142,13 +151,9 @@ extension MoviesCollectionView: UICollectionViewDelegateFlowLayout {
 
 
 // MARK: - ViewModel
-extension MoviesCollectionView: MoviesCollectionViewViewModelDelegat {
-    func moviesCollectionViewViewModel(didReceiveError title: String, message: String) {
+extension MoviesCollectionView: CatalogeViewModelDelegate {
+    func catalogeViewModel(didReceiveError title: String, message: String) {
         moviesDelegate?.moviesCollectionView(showAlertWith: title, message: message)
-    }
-    
-    func moviesCollectionViewViewModel(shouldReloadData success: Bool) {
-        reloadData()
     }
 }
 
@@ -157,12 +162,20 @@ extension MoviesCollectionView: MoviesCollectionViewViewModelDelegat {
 // MARK: - UISearchBar Delegate
 extension MoviesCollectionView: UISearchBarDelegate {
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        scrollToItem(at: IndexPath(item: 0, section: 0), at: .centeredVertically, animated: true)
+        searchBar.showsCancelButton = true
+        viewModel.startSearching()
         return true
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        viewModel.search(for: searchText)
+        viewModel.searching(text: searchText)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        searchBar.endEditing(true)
+        searchBar.text = nil
+        viewModel.endSearching()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
