@@ -57,25 +57,10 @@ class DetailsOfTheShowViewController: UIViewController {
     
     
     // MARK: - Variables
-    private var viewModel: DetailsOfTheShowViewModel
-    private var sections: [CollectionViewSection]
+    private var viewModel: DetailsOfTheShowViewModel?
+    private var sections: [CollectionViewSection] = []
     private let castSection = CastSection()
     private let similarShowsSection = SimilarShowsSection()
-    
-    
-    
-    // MARK: - init
-    required init?(coder: NSCoder) {
-        viewModel = DetailsOfTheShowViewModel(showType: .movie, andID: 0)
-        
-        // Sections Config
-        similarShowsSection.delegate = viewModel
-        
-        // Set Sections Array
-        sections = [castSection, similarShowsSection]
-        
-        super.init(coder: coder)
-    }
     
     
     // MARK: - LifeCycle
@@ -83,6 +68,7 @@ class DetailsOfTheShowViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupNavigationBar()
+        setupSections()
         setupViewModel()
         
         for index in sections.indices {
@@ -114,7 +100,17 @@ class DetailsOfTheShowViewController: UIViewController {
         navigationItem.rightBarButtonItem = shareButton
     }
     
+    private func setupSections() {
+        // Sections Config
+        castSection.delegate = viewModel
+        similarShowsSection.delegate = viewModel
+        
+        // Set Sections Array
+        sections = [castSection, similarShowsSection]
+    }
+    
     private func setupViewModel() {
+        guard let viewModel = viewModel else { return }
         viewModel.hideEpisodeSeasonsLabel = { [weak self] isHidden in
             self?.episodeSeasonsLabel.isHidden = isHidden
             if isHidden {
@@ -132,19 +128,19 @@ class DetailsOfTheShowViewController: UIViewController {
     
     // MARK: - IB Buttons Actions
     @IBAction func watchlistButtonPressed(_ sender: UIButton) {
-        viewModel.watchlistButtonPressed()
+        viewModel?.watchlistButtonPressed()
     }
     
     @IBAction func favoriteButtonPressed(_ sender: UIButton) {
-        viewModel.favoriteButtonPressed()
+        viewModel?.favoriteButtonPressed()
     }
     
     @IBAction func RateButtonPressed(_ sender: UIButton) {
-        viewModel.rateButtonPressed()
+        viewModel?.rateButtonPressed()
     }
     
     @objc private func shareButtonPressed() {
-        viewModel.shareButtonPressed()
+        viewModel?.shareButtonPressed()
     }
 }
 

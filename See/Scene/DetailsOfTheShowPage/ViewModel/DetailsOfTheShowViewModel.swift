@@ -103,6 +103,8 @@ final class DetailsOfTheShowViewModel {
                     self.delegate?.detailsOfTheShowViewModel(accountStatesDidUpdate: (nil, markAsWatchlist, nil))
                 }
                 
+                await fetchAccountStates()
+                
             } catch {
                 delegate?.detailsOfTheShowViewModel(showErrorMessage: "Watchlist", message: error.localizedDescription)
             }
@@ -128,6 +130,8 @@ final class DetailsOfTheShowViewModel {
                     self.delegate?.detailsOfTheShowViewModel(accountStatesDidUpdate: (markAsFavorite, nil, nil))
                 }
                 
+                await fetchAccountStates()
+                
             } catch {
                 delegate?.detailsOfTheShowViewModel(showErrorMessage: "Favorite", message: error.localizedDescription)
             }
@@ -152,6 +156,8 @@ final class DetailsOfTheShowViewModel {
                     self.delegate?.detailsOfTheShowViewModel(showSuccessMessage: "The \(self.showType.rawValue) is \(message) successfully")
                     self.delegate?.detailsOfTheShowViewModel(accountStatesDidUpdate: (nil, nil, markAsRate))
                 }
+                
+                await fetchAccountStates()
                 
             } catch {
                 delegate?.detailsOfTheShowViewModel(showErrorMessage: "Rating", message: error.localizedDescription)

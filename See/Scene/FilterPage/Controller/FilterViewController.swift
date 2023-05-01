@@ -20,12 +20,11 @@ protocol FilterViewControllerDelegate: AnyObject {
 class FilterViewController: UIViewController {
     
     // MARK: - Storyboard  Refernce
-    static func storyboardInstance(with filter: Filter?) -> FilterViewController {
+    static func storyboardInstance(with filter: Filter?, delegate: FilterViewControllerDelegate?) -> FilterViewController {
         let restorationID = "FilterStoryboard"
         let storyboard = UIStoryboard(name: restorationID, bundle: nil).instantiateViewController(withIdentifier: restorationID) as! FilterViewController
-        if let filter = filter {
-            storyboard.filter = filter
-        }
+        storyboard.filter = filter
+        storyboard.delegate = delegate
         return storyboard
     }
 
@@ -36,7 +35,7 @@ class FilterViewController: UIViewController {
     
     
     // MARK: - Variables
-    public weak var delegate: FilterViewControllerDelegate?
+    weak var delegate: FilterViewControllerDelegate?
     private var filter: Filter?
     private var sections: [TableViewSection] = []
     
