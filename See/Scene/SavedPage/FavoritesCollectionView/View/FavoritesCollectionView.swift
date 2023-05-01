@@ -83,18 +83,18 @@ class FavoritesCollectionView: UICollectionView {
 // MARK: - UICollectionView DataSource
 extension FavoritesCollectionView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.getFavoritesCount()
+        return viewModel.numberOfItems
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: FavoritesCollectionViewCell.identifier, for: indexPath) as! FavoritesCollectionViewCell
-        let (cellID, title, genre) = viewModel.getFavoriteShowData(at: indexPath)
+        let (cellID, title, genre) = viewModel.dataForItem(at: indexPath)
         
         cell.setData(cellID: cellID,
                      title: title,
                      genre: genre)
         
-        viewModel.getFavoriteShowPosterImage(at: indexPath) { cellID, posterImage in
+        viewModel.getPosterImageForItem(at: indexPath) { cellID, posterImage in
             guard cell.getID() == cellID else { return  }
             cell.setPosterImage(with: posterImage)
         }
@@ -108,7 +108,7 @@ extension FavoritesCollectionView: UICollectionViewDataSource {
 // MARK: - UICollectionView Delegate
 extension FavoritesCollectionView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel.didSelectFavoriteShow(at: indexPath)
+        viewModel.didSelectItem(at: indexPath)
     }
 }
 
