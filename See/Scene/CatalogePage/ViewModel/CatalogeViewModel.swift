@@ -198,6 +198,7 @@ final class CatalogeViewModel {
             isFilterApplied = true
             currentFilter = filter
             addTemp(true)
+            shows = []
             fetchFilter(with: filter, page: currentPage)
             
         } else {
