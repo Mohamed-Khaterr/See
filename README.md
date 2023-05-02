@@ -2,7 +2,7 @@
 
 <!-- Project Settings -->
 ![Xcode: Version](https://img.shields.io/badge/Xcode-14.3-lightgray?logo=Xcode)
-![Swift: Version](https://img.shields.io/badge/Swift-5.5-lightgray?logo=Swift)
+![Swift: Version](https://img.shields.io/badge/Swift-5.8-lightgray?logo=Swift)
 ![iOS: Version](https://img.shields.io/badge/iOS-15.0+-lightgray) 
 ![Devices: iPhone & iPad](https://img.shields.io/badge/Devices-iPhone%20&%20iPad-lightgray)
 ![Interface: UIKit | SwiftUI](https://img.shields.io/badge/Interface-UIKit-lightgray)
@@ -92,7 +92,7 @@ iOS Application (similar to Netflix but different in UI design) based on MVVM.
 <a href="https://youtu.be/KP760vleETU">
     <!-- Video Image -->
     <img 
-        src="https://img.youtube.com/vi/KP760vleETU/0.jpg" 
+        src="https://img.youtube.com/vi/KP760vleETU/3.jpg" 
         alt="Demo Video" 
         height="400"
     />
