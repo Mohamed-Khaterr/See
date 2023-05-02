@@ -92,7 +92,7 @@ iOS Application (similar to Netflix but different in UI design) based on MVVM.
 <a href="https://youtu.be/KP760vleETU">
     <!-- Video Image -->
     <img 
-        src="https://img.youtube.com/vi/KP760vleETU/3.jpg" 
+        src="https://img.youtube.com/vi/KP760vleETU/0.jpg" 
         alt="Demo Video" 
         height="400"
     />
