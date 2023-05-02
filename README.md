@@ -1,7 +1,7 @@
 # See
 
 <!-- Project Settings -->
-![Xcode: Version](https://img.shields.io/badge/Xcode-13-lightgray?logo=Xcode)
+![Xcode: Version](https://img.shields.io/badge/Xcode-14.3-lightgray?logo=Xcode)
 ![Swift: Version](https://img.shields.io/badge/Swift-5.5-lightgray?logo=Swift)
 ![iOS: Version](https://img.shields.io/badge/iOS-15.0+-lightgray) 
 ![Devices: iPhone & iPad](https://img.shields.io/badge/Devices-iPhone%20&%20iPad-lightgray)
@@ -67,7 +67,7 @@ iOS Application (similar to Netflix but different in UI design) based on MVVM.
 - [Youtube API](https://developers.google.com/youtube/v3)
 - URLSession with Modern Concurrency
 - NSCache
-- Strategy design pattern
+- Strategy Design Pattern
 - Delegate Desgin Pattern
 - Singleton Design Pattern
 - NotificationCenter
@@ -89,10 +89,10 @@ iOS Application (similar to Netflix but different in UI design) based on MVVM.
 > Click on the image to show the demo video
 
 <!-- Video Link -->
-<a href="https://www.youtube.com/watch?v=btNdq8hYc9o">
+<a href="https://youtu.be/KP760vleETU">
     <!-- Video Image -->
     <img 
-        src="https://img.youtube.com/vi/btNdq8hYc9o/0.jpg" 
+        src="https://img.youtube.com/vi/KP760vleETU/0.jpg" 
         alt="Demo Video" 
         height="400"
     />
