@@ -19,7 +19,7 @@
 
 
 <!-- Project bref -->
-iOS Application (similar to Netflix but different in UI design) based on MVVM.
+iOS Application is Movies and TV Shows preview with a distinctive user interface based on MVVM.
 
 > I was trying to simulate [Merlan Serkaliyev](https://www.behance.net/gallery/152224209/See-Online-Cinema-App?tracking_source=search_projects%7Cmovie+app) design for learning purposes only. I used Figma to create app logo and icons like the Design.
 
